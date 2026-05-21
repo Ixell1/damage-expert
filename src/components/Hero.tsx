@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import {
   ArrowRight,
   Phone,
@@ -27,8 +28,24 @@ export default function Hero() {
         className="absolute -bottom-40 -left-32 w-[480px] h-[480px] bg-brand-orange/10 rounded-full blur-3xl -z-10"
       />
 
-      {/* Transparent car silhouette background */}
-      <CarBgSilhouette />
+      {/* Cinematic car background */}
+      <div
+        className="absolute inset-0 -z-[5] pointer-events-none overflow-hidden"
+        aria-hidden
+      >
+        <Image
+          src="/img/hero-car.webp"
+          alt=""
+          fill
+          priority
+          className="object-cover object-right opacity-[0.18] dark:opacity-[0.35] scale-110"
+          sizes="100vw"
+        />
+        {/* Light mode: wash to white from left so text stays readable */}
+        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-white/40 dark:from-brand-black dark:via-brand-black/80 dark:to-brand-black/20" />
+        {/* Bottom fade so the section meets the next one cleanly */}
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-white dark:to-brand-black" />
+      </div>
 
       <div className="container-x relative">
         {/* Subline "Procenitelj štete — Damage Expert" */}
@@ -222,39 +239,3 @@ function Timeline() {
   );
 }
 
-function CarBgSilhouette() {
-  return (
-    <div
-      className="absolute inset-0 -z-[5] pointer-events-none flex items-end justify-center overflow-hidden"
-      aria-hidden
-    >
-      <svg
-        viewBox="0 0 1400 500"
-        className="w-full h-auto opacity-[0.06] dark:opacity-[0.08]"
-        preserveAspectRatio="xMidYMax meet"
-      >
-        <defs>
-          <linearGradient id="carBgGrad" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0" stopColor="currentColor" stopOpacity="0" />
-            <stop offset="0.5" stopColor="currentColor" stopOpacity="0.6" />
-            <stop offset="1" stopColor="currentColor" stopOpacity="1" />
-          </linearGradient>
-        </defs>
-        {/* Side view car */}
-        <g fill="url(#carBgGrad)" className="text-neutral-900 dark:text-white">
-          {/* Body */}
-          <path d="M 80 380 L 200 380 Q 215 280 380 270 L 600 240 Q 700 215 870 230 L 1070 270 Q 1200 295 1240 350 L 1320 360 L 1320 430 L 80 430 Z" />
-          {/* Roof curve */}
-          <path d="M 400 270 Q 600 200 870 230 L 850 270 L 425 270 Z" opacity="0.5" />
-        </g>
-        {/* Wheels */}
-        <g className="text-neutral-900 dark:text-white">
-          <circle cx="320" cy="430" r="55" fill="currentColor" opacity="0.7" />
-          <circle cx="320" cy="430" r="28" fill="#FF6A00" opacity="0.4" />
-          <circle cx="1080" cy="430" r="55" fill="currentColor" opacity="0.7" />
-          <circle cx="1080" cy="430" r="28" fill="#FF6A00" opacity="0.4" />
-        </g>
-      </svg>
-    </div>
-  );
-}

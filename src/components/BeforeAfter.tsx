@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { MoveHorizontal, TrendingUp, ArrowRight, Camera, AlertTriangle } from 'lucide-react';
 import { formatRSD } from '@/lib/utils';
@@ -13,8 +14,7 @@ interface CaseData {
   parts: string[];
   insurer: string;
   scenario: string;
-  // Placeholder image: encoded SVG of damaged car illustration
-  imageBg: string;
+  image: string;
 }
 
 const CASES: CaseData[] = [
@@ -27,7 +27,7 @@ const CASES: CaseData[] = [
     insurer: 'tipičan slučaj',
     scenario:
       'Vozilo udareno bočno na raskrsnici. Osiguranje krivca ponudilo procenu bez uvida u skrivena oštećenja unutrašnjih panela vrata i deformaciju C-stuba.',
-    imageBg: 'linear-gradient(135deg, #6B7280 0%, #4B5563 60%, #1F2937 100%)',
+    image: '/img/damage-passat.webp',
   },
   {
     title: 'Prednji udar — udarac u parkirano vozilo',
@@ -38,7 +38,7 @@ const CASES: CaseData[] = [
     insurer: 'tipičan slučaj',
     scenario:
       'Sleteo u parkirano vozilo. Osiguranje obračunalo halogene farove, dok je vozilo opremljeno full-LED tehnologijom. Nedostajala ADAS kalibracija stakla.',
-    imageBg: 'linear-gradient(135deg, #9CA3AF 0%, #6B7280 50%, #374151 100%)',
+    image: '/img/damage-octavia.webp',
   },
   {
     title: 'Parking oštećenje — više udaraca',
@@ -49,7 +49,7 @@ const CASES: CaseData[] = [
     insurer: 'tipičan slučaj',
     scenario:
       'Više udaraca na parkingu tokom nekoliko nedelja. Osiguranje obračunalo samo plastične delove, ali je bila potrebna kompletna boja zadnjih vrata i replacement retrovizora sa kamerom.',
-    imageBg: 'linear-gradient(135deg, #A1A1AA 0%, #71717A 50%, #27272A 100%)',
+    image: '/img/damage-tucson.webp',
   },
 ];
 
@@ -117,8 +117,8 @@ export default function BeforeAfter() {
             <DamageImage
               label="Stanje vozila"
               sublabel="Foto oštećenja sa pregleda"
-              imageBg={active.imageBg}
-              caseIdx={activeIdx}
+              src={active.image}
+              vehicle={active.vehicle}
             />
             <div className="grid grid-cols-1 gap-3">
               {/* Insurance estimate card */}
@@ -212,9 +212,9 @@ export default function BeforeAfter() {
         <div className="mt-6 text-xs text-neutral-500 dark:text-neutral-400 flex items-start gap-2">
           <MoveHorizontal className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
           <span>
-            Demonstracioni primeri tipičnih slučajeva iz prakse. Konkretni iznosi zavise od vozila,
-            opreme i obima oštećenja. Stvarne fotografije slučajeva nisu prikazane radi zaštite
-            privatnosti klijenata.
+            Demonstracioni primeri tipičnih slučajeva iz prakse. Fotografije su ilustrativne (radi zaštite
+            privatnosti klijenata nisu prikazane stvarne slike). Konkretni iznosi zavise od vozila,
+            opreme i obima oštećenja.
           </span>
         </div>
       </div>
@@ -225,129 +225,42 @@ export default function BeforeAfter() {
 function DamageImage({
   label,
   sublabel,
-  imageBg,
-  caseIdx,
+  src,
+  vehicle,
 }: {
   label: string;
   sublabel: string;
-  imageBg: string;
-  caseIdx: number;
+  src: string;
+  vehicle: string;
 }) {
   return (
-    <div
-      className="relative rounded-2xl overflow-hidden aspect-[4/3] flex items-end p-5"
-      style={{ background: imageBg }}
-    >
-      {/* SVG damaged car illustration */}
-      <svg
-        className="absolute inset-0 w-full h-full opacity-90"
-        viewBox="0 0 400 300"
-        preserveAspectRatio="xMidYMid slice"
-      >
-        <defs>
-          <linearGradient id={`carGrad-${caseIdx}`} x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0" stopColor="#FFFFFF" stopOpacity="0.15" />
-            <stop offset="1" stopColor="#000000" stopOpacity="0.3" />
-          </linearGradient>
-        </defs>
-        {/* Ground */}
-        <ellipse cx="200" cy="260" rx="180" ry="20" fill="rgba(0,0,0,0.35)" />
-
-        {/* Car body */}
-        <g transform="translate(50, 90)">
-          <path
-            d="M 0 120 L 30 120 Q 35 70 110 65 L 180 50 Q 220 35 270 45 L 310 70 Q 320 95 320 120 L 0 120 Z"
-            fill={`url(#carGrad-${caseIdx})`}
-            stroke="rgba(255,255,255,0.4)"
-            strokeWidth="1.5"
-          />
-          {/* Windows */}
-          <path
-            d="M 60 65 Q 130 38 175 53 L 175 75 L 70 75 Z"
-            fill="rgba(255,255,255,0.15)"
-            stroke="rgba(255,255,255,0.3)"
-            strokeWidth="1"
-          />
-          <path
-            d="M 180 53 Q 230 40 270 50 L 270 75 L 180 75 Z"
-            fill="rgba(255,255,255,0.15)"
-            stroke="rgba(255,255,255,0.3)"
-            strokeWidth="1"
-          />
-          {/* Wheels */}
-          <circle cx="60" cy="120" r="22" fill="rgba(0,0,0,0.7)" />
-          <circle cx="60" cy="120" r="10" fill="rgba(255,255,255,0.4)" />
-          <circle cx="260" cy="120" r="22" fill="rgba(0,0,0,0.7)" />
-          <circle cx="260" cy="120" r="10" fill="rgba(255,255,255,0.4)" />
-
-          {/* DAMAGE markers — different position per case */}
-          {caseIdx === 0 && (
-            <g>
-              {/* Side damage */}
-              <path
-                d="M 170 75 L 240 75 L 235 110 L 170 110 Z"
-                fill="rgba(255,106,0,0.6)"
-                stroke="#FF6A00"
-                strokeWidth="2"
-                strokeDasharray="4,3"
-              />
-              <circle cx="205" cy="92" r="22" fill="rgba(255,106,0,0.3)" />
-              <circle cx="205" cy="92" r="6" fill="#FF6A00" />
-            </g>
-          )}
-          {caseIdx === 1 && (
-            <g>
-              {/* Front damage */}
-              <path
-                d="M 0 100 L 50 100 L 55 120 L 0 120 Z"
-                fill="rgba(255,106,0,0.6)"
-                stroke="#FF6A00"
-                strokeWidth="2"
-                strokeDasharray="4,3"
-              />
-              <circle cx="25" cy="110" r="22" fill="rgba(255,106,0,0.3)" />
-              <circle cx="25" cy="110" r="6" fill="#FF6A00" />
-              {/* Hood crack */}
-              <path d="M 20 75 L 60 90 L 50 95 L 15 80 Z" fill="rgba(255,106,0,0.5)" />
-            </g>
-          )}
-          {caseIdx === 2 && (
-            <g>
-              {/* Rear damage */}
-              <path
-                d="M 275 95 L 320 95 L 320 120 L 270 120 Z"
-                fill="rgba(255,106,0,0.6)"
-                stroke="#FF6A00"
-                strokeWidth="2"
-                strokeDasharray="4,3"
-              />
-              <circle cx="295" cy="108" r="20" fill="rgba(255,106,0,0.3)" />
-              <circle cx="295" cy="108" r="6" fill="#FF6A00" />
-              {/* Multiple scratches */}
-              <path d="M 100 90 L 140 95" stroke="#FF6A00" strokeWidth="2" strokeDasharray="2,2" />
-              <path d="M 130 100 L 170 105" stroke="#FF6A00" strokeWidth="2" strokeDasharray="2,2" />
-            </g>
-          )}
-        </g>
-      </svg>
-
+    <div className="relative rounded-2xl overflow-hidden aspect-[4/3] flex items-end p-5 bg-neutral-900">
+      <Image
+        src={src}
+        alt={`Foto oštećenja — ${vehicle}`}
+        fill
+        className="object-cover"
+        sizes="(min-width: 768px) 50vw, 100vw"
+      />
+      {/* Gradient overlay for label legibility */}
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent"
+      />
       {/* Camera grain noise overlay */}
       <div
         aria-hidden
-        className="absolute inset-0 mix-blend-overlay opacity-20"
+        className="absolute inset-0 mix-blend-overlay opacity-15"
         style={{
-          backgroundImage:
-            'radial-gradient(rgba(255,255,255,0.5) 1px, transparent 1px)',
+          backgroundImage: 'radial-gradient(rgba(255,255,255,0.5) 1px, transparent 1px)',
           backgroundSize: '3px 3px',
         }}
       />
-
       {/* Corner badge */}
-      <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur text-white text-[10px] font-bold uppercase tracking-wider">
+      <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/70 backdrop-blur text-white text-[10px] font-bold uppercase tracking-wider z-10">
         <Camera className="w-3 h-3" />
-        Demo
+        Demo foto
       </div>
-
       {/* Bottom label */}
       <div className="relative z-10 text-white">
         <div className="text-xs uppercase tracking-wider font-bold opacity-90">{label}</div>

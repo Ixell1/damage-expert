@@ -8,9 +8,7 @@ export default function Footer() {
       <div className="container-x">
         <div className="grid md:grid-cols-12 gap-10 mb-12">
           <div className="md:col-span-5">
-            <div className="invert dark:invert-0">
-              <Logo />
-            </div>
+            <Logo />
             <p className="mt-4 text-sm text-neutral-400 max-w-md leading-relaxed">
               {SITE.fullName}. Profesionalna procena štete na vozilima u Audatex sistemu.
               Niš i okolina. Saobraćajni fakultet · Iskustvo iz Sixt rent a car industrije.

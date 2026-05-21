@@ -162,7 +162,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="sr" className={`${inter.variable} ${spaceGrotesk.variable}`} suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+        <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <Script
           id="theme-init"
           strategy="beforeInteractive"

@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Info, X, Wrench, Sparkles } from 'lucide-react';
 import { PARTS, type Part } from '@/data/parts';
@@ -34,7 +35,7 @@ export default function CarDiagram() {
 
         <div className="grid lg:grid-cols-12 gap-8 items-start">
           {/* Diagram */}
-          <div className="lg:col-span-7 card p-4 md:p-8 relative">
+          <div className="lg:col-span-7 card p-4 md:p-6 relative">
             <div className="flex items-center justify-between mb-4">
               <div className="flex gap-2">
                 <button
@@ -64,11 +65,17 @@ export default function CarDiagram() {
               </div>
             </div>
 
-            <div className="relative aspect-[16/10] w-full">
+            <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden bg-gradient-to-br from-neutral-900 to-neutral-800">
               {view === 'top' ? (
-                <TopView active={activePart?.id} onSelect={(id) => setActivePart(PARTS.find((p) => p.id === id) || null)} />
+                <TopViewWithImage
+                  active={activePart?.id}
+                  onSelect={(id) => setActivePart(PARTS.find((p) => p.id === id) || null)}
+                />
               ) : (
-                <SideView active={activePart?.id} onSelect={(id) => setActivePart(PARTS.find((p) => p.id === id) || null)} />
+                <SideViewWithImage
+                  active={activePart?.id}
+                  onSelect={(id) => setActivePart(PARTS.find((p) => p.id === id) || null)}
+                />
               )}
             </div>
 
@@ -210,504 +217,156 @@ function Tier({ label, value, highlight }: { label: string; value: string; highl
   );
 }
 
-function PartShape({
+// Hotspot button with pulse animation overlaid on the car image.
+function Hotspot({
   id,
-  d,
+  label,
+  x,
+  y,
   active,
   onSelect,
-  label,
-  cx,
-  cy,
 }: {
   id: string;
-  d: string;
+  label: string;
+  x: number; // % from left
+  y: number; // % from top
   active?: string;
   onSelect: (id: string) => void;
-  label: string;
-  cx: number;
-  cy: number;
 }) {
   const isActive = active === id;
   return (
-    <g
+    <button
       onClick={() => onSelect(id)}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') onSelect(id);
-      }}
       aria-label={label}
+      style={{ left: `${x}%`, top: `${y}%` }}
+      className={`absolute -translate-x-1/2 -translate-y-1/2 z-10 group/hot transition-transform ${
+        isActive ? 'scale-110' : 'hover:scale-110'
+      }`}
     >
-      <title>{label}</title>
-      <path d={d} className={`car-part ${isActive ? 'active' : ''}`} />
-      {isActive && (
-        <g>
-          <circle cx={cx} cy={cy} r={4} fill="#fff" stroke="#FF6A00" strokeWidth={2} />
-          <circle cx={cx} cy={cy} r={9} fill="none" stroke="#FF6A00" strokeWidth={1.5} opacity={0.4}>
-            <animate attributeName="r" from="6" to="14" dur="1.5s" repeatCount="indefinite" />
-            <animate attributeName="opacity" from="0.6" to="0" dur="1.5s" repeatCount="indefinite" />
-          </circle>
-        </g>
-      )}
-    </g>
-  );
-}
-
-function TopView({ active, onSelect }: { active?: string; onSelect: (id: string) => void }) {
-  // Top-down stylized car silhouette. Coordinates within 800x500 viewBox.
-  return (
-    <svg viewBox="0 0 800 500" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
-      <defs>
-        <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="currentColor" stopOpacity="0.04" />
-          <stop offset="1" stopColor="currentColor" stopOpacity="0.08" />
-        </linearGradient>
-      </defs>
-
-      {/* Body outline */}
-      <path
-        d="M 200 80 Q 400 40 600 80 Q 700 100 720 200 L 720 300 Q 700 400 600 420 Q 400 460 200 420 Q 100 400 80 300 L 80 200 Q 100 100 200 80 Z"
-        fill="url(#bodyGrad)"
-        stroke="currentColor"
-        strokeOpacity="0.2"
-        strokeWidth="1.5"
+      {/* Pulse rings */}
+      <span
+        className={`absolute inset-0 rounded-full ${
+          isActive
+            ? 'bg-brand-orange/60 animate-ping'
+            : 'bg-white/30 group-hover/hot:bg-brand-orange/40'
+        }`}
       />
-
-      {/* Front bumper */}
-      <PartShape
-        id="prednji-branik"
-        d="M 200 80 Q 400 40 600 80 L 600 110 Q 400 70 200 110 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Prednji branik"
-        cx={400}
-        cy={75}
+      <span
+        className={`relative block w-5 h-5 rounded-full border-2 ${
+          isActive
+            ? 'bg-brand-orange border-white shadow-lg shadow-brand-orange/60'
+            : 'bg-white/90 border-white group-hover/hot:bg-brand-orange group-hover/hot:border-brand-orange'
+        }`}
       />
-
-      {/* Hood */}
-      <PartShape
-        id="hauba"
-        d="M 220 110 Q 400 80 580 110 L 580 200 Q 400 195 220 200 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Hauba"
-        cx={400}
-        cy={150}
-      />
-
-      {/* Roof */}
-      <PartShape
-        id="krov"
-        d="M 240 215 Q 400 210 560 215 L 560 290 Q 400 295 240 290 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Krov"
-        cx={400}
-        cy={252}
-      />
-
-      {/* Trunk lid */}
-      <PartShape
-        id="gepek-vrata"
-        d="M 220 305 Q 400 310 580 305 L 580 395 Q 400 415 220 395 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Gepek vrata"
-        cx={400}
-        cy={350}
-      />
-
-      {/* Rear bumper */}
-      <PartShape
-        id="zadnji-branik"
-        d="M 200 395 Q 400 415 600 395 L 600 425 Q 400 460 200 425 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Zadnji branik"
-        cx={400}
-        cy={430}
-      />
-
-      {/* Left front fender */}
-      <PartShape
-        id="prednji-levi-blatobran"
-        d="M 80 200 Q 100 130 200 110 L 220 200 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Prednji levi blatobran"
-        cx={150}
-        cy={170}
-      />
-
-      {/* Right front fender */}
-      <PartShape
-        id="prednji-desni-blatobran"
-        d="M 580 110 Q 700 130 720 200 L 580 200 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Prednji desni blatobran"
-        cx={650}
-        cy={170}
-      />
-
-      {/* Left front door */}
-      <PartShape
-        id="prednja-leva-vrata"
-        d="M 90 210 L 220 210 L 220 290 L 90 290 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Prednja leva vrata"
-        cx={155}
-        cy={250}
-      />
-      {/* Right front door */}
-      <PartShape
-        id="prednja-desna-vrata"
-        d="M 580 210 L 710 210 L 710 290 L 580 290 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Prednja desna vrata"
-        cx={645}
-        cy={250}
-      />
-      {/* Left rear door */}
-      <PartShape
-        id="zadnja-leva-vrata"
-        d="M 90 295 L 220 295 L 220 395 Q 100 400 90 295 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Zadnja leva vrata"
-        cx={155}
-        cy={345}
-      />
-      {/* Right rear door */}
-      <PartShape
-        id="zadnja-desna-vrata"
-        d="M 580 295 L 710 295 Q 700 400 580 395 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Zadnja desna vrata"
-        cx={645}
-        cy={345}
-      />
-
-      {/* Headlights */}
-      <PartShape
-        id="levi-far"
-        d="M 220 90 L 280 105 L 270 130 L 220 115 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Levi far"
-        cx={250}
-        cy={107}
-      />
-      <PartShape
-        id="desni-far"
-        d="M 580 90 L 520 105 L 530 130 L 580 115 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Desni far"
-        cx={550}
-        cy={107}
-      />
-
-      {/* Stop lamps */}
-      <PartShape
-        id="leva-stop-lampa"
-        d="M 220 395 L 280 410 L 270 430 L 220 420 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Leva stop lampa"
-        cx={250}
-        cy={412}
-      />
-      <PartShape
-        id="desna-stop-lampa"
-        d="M 580 395 L 520 410 L 530 430 L 580 420 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Desna stop lampa"
-        cx={550}
-        cy={412}
-      />
-
-      {/* Mirrors */}
-      <PartShape
-        id="levi-retrovizor"
-        d="M 60 200 L 90 195 L 95 215 L 65 220 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Levi retrovizor"
-        cx={78}
-        cy={207}
-      />
-      <PartShape
-        id="desni-retrovizor"
-        d="M 740 200 L 710 195 L 705 215 L 735 220 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Desni retrovizor"
-        cx={722}
-        cy={207}
-      />
-
-      {/* Windshield */}
-      <PartShape
-        id="vetrobransko-staklo"
-        d="M 230 200 L 570 200 L 555 215 L 245 215 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Vetrobransko staklo"
-        cx={400}
-        cy={208}
-      />
-
-      {/* Rear glass */}
-      <PartShape
-        id="zadnje-staklo"
-        d="M 245 290 L 555 290 L 570 305 L 230 305 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Zadnje staklo"
-        cx={400}
-        cy={297}
-      />
-
-      {/* Labels */}
-      <text x="400" y="490" textAnchor="middle" fill="currentColor" opacity="0.4" fontSize="11" fontFamily="monospace">
-        SCHEMA · TOP VIEW
-      </text>
-    </svg>
-  );
-}
-
-function SideView({ active, onSelect }: { active?: string; onSelect: (id: string) => void }) {
-  // Side view: 800x500
-  return (
-    <svg viewBox="0 0 800 500" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
-      <defs>
-        <linearGradient id="bodyGradSide" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="currentColor" stopOpacity="0.04" />
-          <stop offset="1" stopColor="currentColor" stopOpacity="0.08" />
-        </linearGradient>
-      </defs>
-
-      {/* Body outline */}
-      <path
-        d="M 60 320 L 120 320 Q 130 230 230 220 L 360 200 Q 400 180 500 190 L 620 220 Q 680 240 700 280 L 740 290 L 740 350 L 60 350 Z"
-        fill="url(#bodyGradSide)"
-        stroke="currentColor"
-        strokeOpacity="0.2"
-        strokeWidth="1.5"
-      />
-
-      {/* Roof */}
-      <PartShape
-        id="krov"
-        d="M 270 215 Q 400 178 520 192 L 500 215 L 290 215 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Krov"
-        cx={395}
-        cy={200}
-      />
-
-      {/* Hood */}
-      <PartShape
-        id="hauba"
-        d="M 120 320 Q 145 245 250 235 L 250 280 L 120 320 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Hauba"
-        cx={185}
-        cy={285}
-      />
-
-      {/* Front bumper */}
-      <PartShape
-        id="prednji-branik"
-        d="M 60 305 L 120 305 L 120 340 L 60 340 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Prednji branik"
-        cx={90}
-        cy={322}
-      />
-
-      {/* Headlight */}
-      <PartShape
-        id="levi-far"
-        d="M 78 290 L 120 290 L 120 310 L 80 310 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Levi far"
-        cx={100}
-        cy={300}
-      />
-
-      {/* Front fender */}
-      <PartShape
-        id="prednji-levi-blatobran"
-        d="M 120 320 L 250 280 L 250 350 L 120 350 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Prednji levi blatobran"
-        cx={185}
-        cy={325}
-      />
-
-      {/* Front door */}
-      <PartShape
-        id="prednja-leva-vrata"
-        d="M 255 232 L 385 215 L 385 345 L 255 345 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Prednja leva vrata"
-        cx={320}
-        cy={290}
-      />
-
-      {/* Rear door */}
-      <PartShape
-        id="zadnja-leva-vrata"
-        d="M 388 218 L 510 198 L 510 345 L 388 345 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Zadnja leva vrata"
-        cx={449}
-        cy={285}
-      />
-
-      {/* Rear fender */}
-      <PartShape
-        id="zadnja-leva-vrata-blatobran"
-        d="M 515 200 L 620 220 L 620 350 L 515 350 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Zadnja leva vrata"
-        cx={568}
-        cy={290}
-      />
-
-      {/* Trunk */}
-      <PartShape
-        id="gepek-vrata"
-        d="M 625 222 Q 680 245 700 280 L 700 340 L 625 340 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Gepek vrata"
-        cx={665}
-        cy={285}
-      />
-
-      {/* Rear bumper */}
-      <PartShape
-        id="zadnji-branik"
-        d="M 700 305 L 740 305 L 740 340 L 700 340 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Zadnji branik"
-        cx={720}
-        cy={322}
-      />
-
-      {/* Rear stop lamp */}
-      <PartShape
-        id="leva-stop-lampa"
-        d="M 700 290 L 740 290 L 740 305 L 700 305 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Leva stop lampa"
-        cx={720}
-        cy={297}
-      />
-
-      {/* Windshield */}
-      <PartShape
-        id="vetrobransko-staklo"
-        d="M 250 280 L 270 215 L 290 215 L 270 285 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Vetrobransko staklo"
-        cx={270}
-        cy={250}
-      />
-
-      {/* Rear glass */}
-      <PartShape
-        id="zadnje-staklo"
-        d="M 500 218 L 522 218 L 540 285 L 510 285 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Zadnje staklo"
-        cx={518}
-        cy={250}
-      />
-
-      {/* Side window */}
-      <PartShape
-        id="bocna-stakla"
-        d="M 275 230 L 498 215 L 498 280 L 275 280 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Bočno staklo"
-        cx={386}
-        cy={250}
-      />
-
-      {/* Mirror */}
-      <PartShape
-        id="levi-retrovizor"
-        d="M 248 230 L 268 220 L 270 240 L 250 245 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Levi retrovizor"
-        cx={260}
-        cy={232}
-      />
-
-      {/* Side skirt */}
-      <PartShape
-        id="pragovi"
-        d="M 125 350 L 700 350 L 700 370 L 125 370 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Pragovi"
-        cx={400}
-        cy={360}
-      />
-
-      {/* Wheels (felne) */}
-      <g
-        role="button"
-        tabIndex={0}
-        onClick={() => onSelect('felne')}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') onSelect('felne');
-        }}
-        className="cursor-pointer"
+      {/* Label tooltip */}
+      <span
+        className={`absolute left-1/2 -translate-x-1/2 -bottom-7 whitespace-nowrap px-2 py-0.5 rounded-md text-[10px] font-semibold transition ${
+          isActive
+            ? 'bg-brand-orange text-white opacity-100'
+            : 'bg-black/80 text-white opacity-0 group-hover/hot:opacity-100'
+        }`}
       >
-        <title>Felna</title>
-        <circle cx={190} cy={375} r={42} className={`car-part ${active === 'felne' ? 'active' : ''}`} />
-        <circle cx={190} cy={375} r={20} fill="currentColor" opacity="0.2" />
-        <circle cx={610} cy={375} r={42} className={`car-part ${active === 'felne' ? 'active' : ''}`} />
-        <circle cx={610} cy={375} r={20} fill="currentColor" opacity="0.2" />
-      </g>
+        {label}
+      </span>
+    </button>
+  );
+}
 
-      {/* Underbody / chassis */}
-      <PartShape
-        id="sasija-podvozje"
-        d="M 60 350 L 740 350 L 740 365 L 60 365 Z"
-        active={active}
-        onSelect={onSelect}
-        label="Šasija / podvozje"
-        cx={400}
-        cy={358}
+function TopViewWithImage({ active, onSelect }: { active?: string; onSelect: (id: string) => void }) {
+  // Hotspot coordinates calibrated for /img/car-top.webp (car positioned roughly centered, nose left)
+  const spots = [
+    { id: 'prednji-branik', label: 'Prednji branik', x: 11, y: 50 },
+    { id: 'hauba', label: 'Hauba', x: 25, y: 50 },
+    { id: 'vetrobransko-staklo', label: 'Vetrobran', x: 40, y: 50 },
+    { id: 'krov', label: 'Krov', x: 52, y: 50 },
+    { id: 'zadnje-staklo', label: 'Zadnje staklo', x: 64, y: 50 },
+    { id: 'gepek-vrata', label: 'Gepek', x: 78, y: 50 },
+    { id: 'zadnji-branik', label: 'Zadnji branik', x: 89, y: 50 },
+    { id: 'prednji-levi-blatobran', label: 'Levi blatobran', x: 22, y: 26 },
+    { id: 'prednji-desni-blatobran', label: 'Desni blatobran', x: 22, y: 76 },
+    { id: 'prednja-leva-vrata', label: 'Prednja leva vrata', x: 42, y: 26 },
+    { id: 'prednja-desna-vrata', label: 'Prednja desna vrata', x: 42, y: 76 },
+    { id: 'zadnja-leva-vrata', label: 'Zadnja leva vrata', x: 63, y: 26 },
+    { id: 'zadnja-desna-vrata', label: 'Zadnja desna vrata', x: 63, y: 76 },
+    { id: 'levi-far', label: 'Levi far', x: 15, y: 36 },
+    { id: 'desni-far', label: 'Desni far', x: 15, y: 64 },
+    { id: 'leva-stop-lampa', label: 'Leva stop lampa', x: 85, y: 36 },
+    { id: 'desna-stop-lampa', label: 'Desna stop lampa', x: 85, y: 64 },
+    { id: 'levi-retrovizor', label: 'Levi retrovizor', x: 30, y: 14 },
+    { id: 'desni-retrovizor', label: 'Desni retrovizor', x: 30, y: 86 },
+  ];
+
+  return (
+    <div className="relative w-full h-full">
+      <Image
+        src="/img/car-top.webp"
+        alt="Šema vozila — pogled odozgo"
+        fill
+        className="object-contain"
+        sizes="(min-width: 1024px) 50vw, 100vw"
       />
+      {spots.map((s) => (
+        <Hotspot
+          key={s.id}
+          id={s.id}
+          label={s.label}
+          x={s.x}
+          y={s.y}
+          active={active}
+          onSelect={onSelect}
+        />
+      ))}
+      <div className="absolute bottom-2 right-3 text-[10px] font-mono uppercase tracking-wider text-white/40 pointer-events-none">
+        Schema · Top View
+      </div>
+    </div>
+  );
+}
 
-      <text x="400" y="450" textAnchor="middle" fill="currentColor" opacity="0.4" fontSize="11" fontFamily="monospace">
-        SCHEMA · SIDE VIEW
-      </text>
-    </svg>
+function SideViewWithImage({ active, onSelect }: { active?: string; onSelect: (id: string) => void }) {
+  // Side view coordinates (nose facing left)
+  const spots = [
+    { id: 'prednji-branik', label: 'Prednji branik', x: 8, y: 70 },
+    { id: 'hauba', label: 'Hauba', x: 22, y: 55 },
+    { id: 'levi-far', label: 'Far', x: 9, y: 58 },
+    { id: 'prednji-levi-blatobran', label: 'Blatobran', x: 22, y: 75 },
+    { id: 'vetrobransko-staklo', label: 'Vetrobransko staklo', x: 33, y: 38 },
+    { id: 'krov', label: 'Krov', x: 50, y: 28 },
+    { id: 'bocna-stakla', label: 'Bočno staklo', x: 50, y: 45 },
+    { id: 'prednja-leva-vrata', label: 'Prednja vrata', x: 42, y: 60 },
+    { id: 'zadnja-leva-vrata', label: 'Zadnja vrata', x: 60, y: 60 },
+    { id: 'pragovi', label: 'Pragovi', x: 50, y: 88 },
+    { id: 'levi-retrovizor', label: 'Retrovizor', x: 36, y: 50 },
+    { id: 'zadnje-staklo', label: 'Zadnje staklo', x: 70, y: 38 },
+    { id: 'gepek-vrata', label: 'Gepek', x: 82, y: 50 },
+    { id: 'leva-stop-lampa', label: 'Stop lampa', x: 91, y: 60 },
+    { id: 'zadnji-branik', label: 'Zadnji branik', x: 92, y: 72 },
+    { id: 'felne', label: 'Felne', x: 25, y: 92 },
+  ];
+
+  return (
+    <div className="relative w-full h-full">
+      <Image
+        src="/img/car-side.webp"
+        alt="Šema vozila — bočni pogled"
+        fill
+        className="object-contain"
+        sizes="(min-width: 1024px) 50vw, 100vw"
+      />
+      {spots.map((s) => (
+        <Hotspot
+          key={s.id}
+          id={s.id}
+          label={s.label}
+          x={s.x}
+          y={s.y}
+          active={active}
+          onSelect={onSelect}
+        />
+      ))}
+      <div className="absolute bottom-2 right-3 text-[10px] font-mono uppercase tracking-wider text-white/40 pointer-events-none">
+        Schema · Side View
+      </div>
+    </div>
   );
 }
