@@ -38,11 +38,13 @@ export default function Hero() {
           alt=""
           fill
           priority
-          className="object-cover object-right opacity-[0.18] dark:opacity-[0.35] scale-110"
+          className="object-cover object-right opacity-30 dark:opacity-60 scale-110"
           sizes="100vw"
         />
-        {/* Light mode: wash to white from left so text stays readable */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-white/40 dark:from-brand-black dark:via-brand-black/80 dark:to-brand-black/20" />
+        {/* Strong wash from left so text stays crisp on both modes */}
+        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/50 dark:from-brand-black dark:via-brand-black/95 dark:to-brand-black/40" />
+        {/* Mobile/tablet additional vertical wash since car shrinks */}
+        <div className="absolute inset-0 lg:hidden bg-white/35 dark:bg-brand-black/40" />
         {/* Bottom fade so the section meets the next one cleanly */}
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-white dark:to-brand-black" />
       </div>
