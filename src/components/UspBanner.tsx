@@ -74,15 +74,15 @@ export default function UspBanner() {
               />
               <UspCard
                 icon={Bot}
-                title="Audatex sistem"
+                title="Audatex procena"
                 value="100%"
-                desc="Procena prihvatljiva za osiguranja"
+                desc="koju prihvataju sve osiguravajuće kuće u Srbiji."
               />
               <UspCard
                 icon={Zap}
                 title="Brzina obrade"
                 value="24h"
-                desc="Zapisnik na vašem e-mail-u"
+                desc="Zapisnik kreiran od strane procenitelja, ne od AI ili kompjuterskog softvera."
               />
             </div>
           </div>
