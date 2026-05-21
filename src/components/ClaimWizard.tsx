@@ -83,8 +83,8 @@ export default function ClaimWizard() {
   const [data, setData] = useState<FormData>(initial);
   const [submitted, setSubmitted] = useState(false);
 
-  const next = () => setStep((s) => Math.min(4, (s + 1) as Step));
-  const prev = () => setStep((s) => Math.max(0, (s - 1) as Step));
+  const next = () => setStep((s) => Math.min(4, s + 1) as Step);
+  const prev = () => setStep((s) => Math.max(0, s - 1) as Step);
 
   const update = <K extends keyof FormData>(key: K, value: FormData[K]) =>
     setData((d) => ({ ...d, [key]: value }));
