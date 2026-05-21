@@ -1,0 +1,207 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: 255 255 255;
+  --fg: 10 10 10;
+  --muted: 110 110 110;
+  --line: 232 232 232;
+  --card: 255 255 255;
+  --card-elev: 250 250 250;
+  --accent: 255 106 0;
+}
+
+.dark {
+  --bg: 10 10 10;
+  --fg: 245 245 245;
+  --muted: 160 160 160;
+  --line: 31 31 31;
+  --card: 17 17 17;
+  --card-elev: 26 26 26;
+  --accent: 255 106 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: rgb(var(--bg));
+  color: rgb(var(--fg));
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+::selection {
+  background-color: #FF6A00;
+  color: #ffffff;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: rgb(var(--bg));
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--line));
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FF6A00;
+}
+
+/* Reusable utilities */
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
+.grain {
+  background-image: radial-gradient(rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+
+.dark .grain {
+  background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+}
+
+.gradient-text {
+  background: linear-gradient(120deg, #FF6A00 0%, #FF8C3D 50%, #FF6A00 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 4s linear infinite;
+}
+
+.glow-orange {
+  box-shadow: 0 10px 40px -10px rgba(255, 106, 0, 0.4);
+}
+
+.dark .glow-orange {
+  box-shadow: 0 10px 40px -10px rgba(255, 106, 0, 0.6);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  background: #FF6A00;
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 9999px;
+  transition: all 0.25s ease;
+  box-shadow: 0 10px 30px -10px rgba(255, 106, 0, 0.6);
+}
+
+.btn-primary:hover {
+  background: #E85D00;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px -10px rgba(255, 106, 0, 0.7);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  background: transparent;
+  color: rgb(var(--fg));
+  font-weight: 600;
+  border-radius: 9999px;
+  border: 1px solid rgb(var(--line));
+  transition: all 0.25s ease;
+}
+
+.btn-secondary:hover {
+  border-color: #FF6A00;
+  color: #FF6A00;
+}
+
+.card {
+  background-color: rgb(var(--card));
+  border: 1px solid rgb(var(--line));
+  border-radius: 1rem;
+  transition: all 0.25s ease;
+}
+
+.card:hover {
+  border-color: rgba(255, 106, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+.section {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+}
+
+.container-x {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+/* Car SVG part interaction */
+.car-part {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  stroke: rgb(var(--fg));
+  stroke-width: 1.2;
+  fill: rgb(var(--card-elev));
+}
+
+.dark .car-part {
+  stroke: rgba(255,255,255,0.4);
+  fill: rgba(255,255,255,0.04);
+}
+
+.car-part:hover {
+  fill: rgba(255, 106, 0, 0.6);
+  stroke: #FF6A00;
+}
+
+.car-part.active {
+  fill: #FF6A00;
+  stroke: #FF6A00;
+}
+
+/* Marquee */
+.marquee-track {
+  animation: marquee 28s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* Reveal anim helper used by intersection observers */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
