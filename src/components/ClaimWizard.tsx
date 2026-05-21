@@ -119,7 +119,7 @@ export default function ClaimWizard() {
   // Build message for WhatsApp / Viber / Email
   const buildMessage = () => {
     const lines = [
-      `🔧 NOVA PRIJAVA ŠTETE — Damage Expert`,
+      `🔧 NOVA PRIJAVA ŠTETE - Damage Expert`,
       ``,
       `📋 Tip štete: ${DAMAGE_TYPES.find((d) => d.id === data.damageType)?.label || data.damageType}`,
       `🚗 Vozilo: ${data.brand} ${data.model} (${data.year})`,
@@ -136,11 +136,11 @@ export default function ClaimWizard() {
       data.city ? `📍 Grad: ${data.city}` : '',
       data.insurance ? `🛡️ Osiguranje: ${data.insurance}` : '',
       data.hasPoliceReport ? '✅ Ima policijski zapisnik' : '',
-      data.isUrgent ? '🚨 HITNO — istog dana' : '',
+      data.isUrgent ? '🚨 HITNO - istog dana' : '',
       ``,
       `📷 Broj fotografija: ${data.files.length}`,
       ``,
-      `— Poslato preko damageexpert.rs`,
+      `- Poslato preko damageexpert.rs`,
     ].filter(Boolean);
     return lines.join('\n');
   };
@@ -153,7 +153,7 @@ export default function ClaimWizard() {
   const waLink = `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(message)}`;
   const viberLink = `viber://chat?number=%2B${SITE.viber}&draft=${encodeURIComponent(message)}`;
   const mailLink = `mailto:${SITE.email}?subject=${encodeURIComponent(
-    'Prijava štete — ' + (data.fullName || 'web prijava')
+    'Prijava štete - ' + (data.fullName || 'web prijava')
   )}&body=${encodeURIComponent(message)}`;
 
   return (
@@ -319,7 +319,7 @@ export default function ClaimWizard() {
                     <StepHeader
                       number={4}
                       title="Fotografije"
-                      subtitle="Opciono — pomaže nam da pripremimo procenu"
+                      subtitle="Opciono - pomaže nam da pripremimo procenu"
                     />
                     <label
                       htmlFor="files"
@@ -402,7 +402,7 @@ export default function ClaimWizard() {
                       <Checkbox
                         checked={data.isUrgent}
                         onChange={(v) => update('isUrgent', v)}
-                        label="🚨 Hitan slučaj — potreban mi je zapisnik istog dana"
+                        label="🚨 Hitan slučaj - potreban mi je zapisnik istog dana"
                       />
                     </div>
                     <div className="mt-6 p-4 rounded-xl bg-neutral-100 dark:bg-neutral-900 text-xs text-neutral-600 dark:text-neutral-400">
@@ -532,7 +532,7 @@ function SubmittedView({
       <h3 className="font-display text-3xl font-extrabold mb-3">Prijava je spremna za slanje</h3>
       <p className="text-neutral-600 dark:text-neutral-400 max-w-xl mx-auto mb-8">
         Izaberite kanal preko kog želite da pošaljete prijavu Marku. Vaši podaci su već
-        formatirani — samo kliknite, otvoriće se aplikacija sa pripremljenom porukom.
+        formatirani - samo kliknite, otvoriće se aplikacija sa pripremljenom porukom.
       </p>
 
       <div className="grid sm:grid-cols-3 gap-3 max-w-2xl mx-auto">

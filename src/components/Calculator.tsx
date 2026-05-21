@@ -173,9 +173,17 @@ export default function Calculator() {
                           : 'border-neutral-200 dark:border-neutral-800'
                       }`}
                     >
-                      <button
+                      <div
+                        role="button"
+                        tabIndex={0}
                         onClick={() => togglePart(part.id)}
-                        className="w-full flex items-start gap-2 text-left"
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            togglePart(part.id);
+                          }
+                        }}
+                        className="w-full flex items-start gap-2 text-left cursor-pointer"
                       >
                         <div
                           className={`mt-0.5 w-5 h-5 rounded-md border flex items-center justify-center flex-shrink-0 ${
@@ -189,10 +197,10 @@ export default function Calculator() {
                         <div className="flex-1 min-w-0">
                           <div className="font-semibold text-sm">{part.name}</div>
                           <div className="text-[11px] text-neutral-500 dark:text-neutral-400">
-                            {formatRSD(part.range.min)} – {formatRSD(part.range.max)}
+                            {formatRSD(part.range.min)} - {formatRSD(part.range.max)}
                           </div>
                         </div>
-                      </button>
+                      </div>
 
                       <AnimatePresence>
                         {isSelected && sel && (
@@ -206,7 +214,11 @@ export default function Calculator() {
                               {(Object.keys(DAMAGE_LABEL) as DamageLevel[]).map((lv) => (
                                 <button
                                   key={lv}
-                                  onClick={() => setLevel(part.id, lv)}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setLevel(part.id, lv);
+                                  }}
+                                  type="button"
                                   className={`py-1.5 rounded-md text-[11px] font-semibold transition ${
                                     sel.level === lv
                                       ? 'bg-brand-orange text-white'

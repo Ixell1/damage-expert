@@ -300,7 +300,7 @@ function TopViewWithImage({ active, onSelect }: { active?: string; onSelect: (id
     <div className="relative w-full h-full">
       <Image
         src="/img/car-top.webp"
-        alt="Šema vozila — pogled odozgo"
+        alt="Šema vozila - pogled odozgo"
         fill
         className="object-contain"
         sizes="(min-width: 1024px) 50vw, 100vw"
@@ -324,31 +324,32 @@ function TopViewWithImage({ active, onSelect }: { active?: string; onSelect: (id
 }
 
 function SideViewWithImage({ active, onSelect }: { active?: string; onSelect: (id: string) => void }) {
-  // Side view coordinates (nose facing left)
+  // Side view (nose left). Calibrated to /img/car-side.webp where the sedan body
+  // sits roughly horizontally centered, roof at ~y28%, sill at ~y76%.
   const spots = [
-    { id: 'prednji-branik', label: 'Prednji branik', x: 8, y: 70 },
-    { id: 'hauba', label: 'Hauba', x: 22, y: 55 },
-    { id: 'levi-far', label: 'Far', x: 9, y: 58 },
-    { id: 'prednji-levi-blatobran', label: 'Blatobran', x: 22, y: 75 },
-    { id: 'vetrobransko-staklo', label: 'Vetrobransko staklo', x: 33, y: 38 },
-    { id: 'krov', label: 'Krov', x: 50, y: 28 },
-    { id: 'bocna-stakla', label: 'Bočno staklo', x: 50, y: 45 },
-    { id: 'prednja-leva-vrata', label: 'Prednja vrata', x: 42, y: 60 },
-    { id: 'zadnja-leva-vrata', label: 'Zadnja vrata', x: 60, y: 60 },
-    { id: 'pragovi', label: 'Pragovi', x: 50, y: 88 },
-    { id: 'levi-retrovizor', label: 'Retrovizor', x: 36, y: 50 },
-    { id: 'zadnje-staklo', label: 'Zadnje staklo', x: 70, y: 38 },
-    { id: 'gepek-vrata', label: 'Gepek', x: 82, y: 50 },
-    { id: 'leva-stop-lampa', label: 'Stop lampa', x: 91, y: 60 },
-    { id: 'zadnji-branik', label: 'Zadnji branik', x: 92, y: 72 },
-    { id: 'felne', label: 'Felne', x: 25, y: 92 },
+    { id: 'prednji-branik', label: 'Prednji branik', x: 14, y: 63 },
+    { id: 'levi-far', label: 'Far', x: 17, y: 58 },
+    { id: 'hauba', label: 'Hauba', x: 28, y: 52 },
+    { id: 'prednji-levi-blatobran', label: 'Blatobran', x: 27, y: 64 },
+    { id: 'vetrobransko-staklo', label: 'Vetrobransko staklo', x: 37, y: 41 },
+    { id: 'levi-retrovizor', label: 'Retrovizor', x: 41, y: 44 },
+    { id: 'krov', label: 'Krov', x: 52, y: 30 },
+    { id: 'bocna-stakla', label: 'Bočno staklo', x: 49, y: 44 },
+    { id: 'prednja-leva-vrata', label: 'Prednja vrata', x: 47, y: 62 },
+    { id: 'zadnja-leva-vrata', label: 'Zadnja vrata', x: 62, y: 62 },
+    { id: 'zadnje-staklo', label: 'Zadnje staklo', x: 68, y: 42 },
+    { id: 'gepek-vrata', label: 'Gepek', x: 80, y: 48 },
+    { id: 'leva-stop-lampa', label: 'Stop lampa', x: 87, y: 55 },
+    { id: 'zadnji-branik', label: 'Zadnji branik', x: 90, y: 65 },
+    { id: 'pragovi', label: 'Pragovi', x: 55, y: 75 },
+    { id: 'felne', label: 'Felne', x: 24, y: 78 },
   ];
 
   return (
     <div className="relative w-full h-full">
       <Image
         src="/img/car-side.webp"
-        alt="Šema vozila — bočni pogled"
+        alt="Šema vozila - bočni pogled"
         fill
         className="object-contain"
         sizes="(min-width: 1024px) 50vw, 100vw"

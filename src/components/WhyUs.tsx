@@ -12,7 +12,7 @@ const USPS = [
   {
     icon: MapPin,
     title: 'Dolazimo na adresu',
-    desc: 'Ako vozilo nije u voznom stanju ili Vam ne odgovara dolazak — izlazimo na lokaciju.',
+    desc: 'Ako vozilo nije u voznom stanju ili Vam ne odgovara dolazak - izlazimo na lokaciju.',
   },
   {
     icon: GraduationCap,
@@ -52,7 +52,7 @@ export default function WhyUs() {
             </h2>
             <p className="mt-5 text-lg text-neutral-600 dark:text-neutral-400 text-pretty">
               U Srbiji ne postoji formalni sertifikat za procenitelje štete na vozilima. Zato je
-              najvažnije ko stoji iza procene — obrazovanje, godine prakse i sistemi sa kojima radi.
+              najvažnije ko stoji iza procene - obrazovanje, godine prakse i sistemi sa kojima radi.
             </p>
 
             <div className="mt-8 p-6 rounded-3xl border-2 border-brand-orange/30 bg-brand-orange/5">
@@ -68,7 +68,7 @@ export default function WhyUs() {
                 </div>
               </div>
               <p className="text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">
-                „U rent a caru sam obradio hiljade slučajeva — od ogrebotina na parkingu do
+                „U rent a caru sam obradio hiljade slučajeva - od ogrebotina na parkingu do
                 totalnih šteta na flotama. Tu nema mesta za grešku jer iza svake procene stoji
                 račun ka klijentu. Tu rigoroznost donosim u svaki zapisnik koji izrađujem."
               </p>

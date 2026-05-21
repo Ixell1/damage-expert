@@ -22,7 +22,7 @@ const STEPS = [
     icon: FileCheck2,
     number: '03',
     title: 'Šaljemo zapisnik',
-    desc: 'Audatex zapisnik na e-mail u roku od 24h (hitni slučajevi — istog dana). Predajete osiguranju i nastavljate naplatu.',
+    desc: 'Audatex zapisnik na e-mail u roku od 24h (hitni slučajevi - istog dana). Predajete osiguranju i nastavljate naplatu.',
     time: 'Maks. 24h',
   },
 ];

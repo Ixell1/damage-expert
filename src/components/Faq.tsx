@@ -36,7 +36,7 @@ export default function Faq() {
               Sve što biste me pitali na <span className="text-brand-orange">prvom pozivu</span>.
             </h2>
             <p className="mt-4 text-neutral-600 dark:text-neutral-400 text-pretty">
-              Ako Vam treba nešto specifično za Vaš slučaj, kontaktirajte me direktno — prva
+              Ako Vam treba nešto specifično za Vaš slučaj, kontaktirajte me direktno - prva
               konsultacija je besplatna.
             </p>
           </div>

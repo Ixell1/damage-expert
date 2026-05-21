@@ -2,16 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import {
-  ArrowRight,
-  Phone,
-  Clock,
-  MapPin,
-  ShieldCheck,
-  GraduationCap,
-  Car,
-  Sparkles,
-} from 'lucide-react';
+import { ArrowRight, Phone, MapPin } from 'lucide-react';
 import { SITE } from '@/data/site';
 
 export default function Hero() {
@@ -50,7 +41,7 @@ export default function Hero() {
       </div>
 
       <div className="container-x relative">
-        {/* Subline "Procenitelj štete — Damage Expert" */}
+        {/* Subline "Procenitelj štete - Damage Expert" */}
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -61,7 +52,7 @@ export default function Hero() {
           Procenitelj štete · Damage Expert
         </motion.div>
 
-        {/* Badge row */}
+        {/* Badge row - samo slobodni termini */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -72,34 +63,6 @@ export default function Hero() {
             <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse" />
             Slobodni termini ove nedelje
           </span>
-          <a
-            href="#o-nama"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-xs font-semibold hover:bg-brand-orange dark:hover:bg-brand-orange dark:hover:text-white transition-colors"
-          >
-            <GraduationCap className="w-3.5 h-3.5" />
-            Saobraćajni fakultet
-          </a>
-          <a
-            href="#o-nama"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 text-xs font-semibold hover:border-brand-orange hover:text-brand-orange transition-colors"
-          >
-            <Car className="w-3.5 h-3.5" />
-            5+ god. Sixt rent a car
-          </a>
-          <a
-            href="#o-nama"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 text-xs font-semibold hover:border-brand-orange hover:text-brand-orange transition-colors"
-          >
-            <ShieldCheck className="w-3.5 h-3.5" />
-            Audatex sistem
-          </a>
-          <a
-            href="#o-nama"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 text-xs font-semibold hover:border-brand-orange hover:text-brand-orange transition-colors"
-          >
-            <Sparkles className="w-3.5 h-3.5" />
-            O nama
-          </a>
         </motion.div>
 
         <div className="grid lg:grid-cols-12 gap-10 items-center">
@@ -137,15 +100,21 @@ export default function Hero() {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="mt-8 flex flex-wrap gap-3"
+              className="mt-8 flex flex-nowrap items-stretch gap-2"
             >
-              <a href="#prijava" className="btn-primary group">
+              <a
+                href="#prijava"
+                className="group inline-flex items-center justify-center gap-1.5 px-4 sm:px-5 py-3 rounded-full bg-brand-orange text-white font-semibold text-sm shadow-lg shadow-brand-orange/30 hover:bg-brand-orangeDark hover:-translate-y-0.5 transition"
+              >
                 Prijavi štetu online
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform flex-shrink-0" />
               </a>
-              <a href={`tel:${SITE.phone}`} className="btn-secondary">
-                <Phone className="w-4 h-4" />
-                {SITE.phoneDisplay}
+              <a
+                href={`tel:${SITE.phone}`}
+                className="inline-flex items-center justify-center gap-1.5 px-4 sm:px-5 py-3 rounded-full border border-neutral-300 dark:border-neutral-700 text-neutral-900 dark:text-white font-semibold text-sm hover:border-brand-orange hover:text-brand-orange transition"
+              >
+                <Phone className="w-4 h-4 flex-shrink-0" />
+                <span className="whitespace-nowrap">{SITE.phoneDisplay}</span>
               </a>
             </motion.div>
 
@@ -171,20 +140,6 @@ export default function Hero() {
             <div className="relative">
               <div className="absolute -inset-6 bg-gradient-to-br from-brand-orange/30 to-transparent rounded-3xl blur-2xl" aria-hidden />
               <div className="relative card p-6 md:p-8 bg-white/80 dark:bg-brand-ink/80 backdrop-blur">
-                <div className="flex items-center justify-between mb-6">
-                  <div>
-                    <div className="text-xs uppercase tracking-widest text-neutral-500 dark:text-neutral-400">
-                      Tipičan slučaj
-                    </div>
-                    <div className="font-display text-xl font-bold mt-1">
-                      Izlazak na teren → Procena → Zapisnik
-                    </div>
-                  </div>
-                  <div className="w-12 h-12 rounded-2xl bg-brand-orange/15 flex items-center justify-center">
-                    <Clock className="w-6 h-6 text-brand-orange" />
-                  </div>
-                </div>
-
                 <Timeline />
 
                 <div className="mt-6 pt-6 border-t border-neutral-200 dark:border-neutral-800 flex items-center gap-3 text-sm">

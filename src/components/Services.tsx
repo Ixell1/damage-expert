@@ -65,7 +65,7 @@ export default function Services() {
             osiguranja.
           </h2>
           <p className="mt-4 text-lg text-neutral-600 dark:text-neutral-400 text-pretty">
-            Sve procene se rade u Audatex sistemu — istom alatu koji koriste i osiguravajuća
+            Sve procene se rade u Audatex sistemu - istom alatu koji koriste i osiguravajuća
             društva. Zapisnik je standardizovan, transparentan i može se koristiti kao validan
             dokument u procesu naplate štete.
           </p>

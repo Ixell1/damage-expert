@@ -1,35 +1,29 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ShieldCheck, Star } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
 import { INSURANCE_PARTNERS } from '@/data/site';
 
 export default function Authority() {
+  // Globos je prvi (aktivan partner), ostali odmah za njim
+  const ordered = [...INSURANCE_PARTNERS];
   // Duplicate for seamless marquee
-  const items = [...INSURANCE_PARTNERS, ...INSURANCE_PARTNERS];
+  const items = [...ordered, ...ordered];
 
   return (
     <section className="relative py-10 md:py-12 border-y border-neutral-200 dark:border-neutral-900 bg-neutral-50/60 dark:bg-brand-ink/40">
       <div className="container-x">
-        <div className="flex items-center justify-between gap-4 mb-6 flex-wrap">
-          <div className="flex items-center gap-3">
-            <span className="inline-flex w-9 h-9 rounded-full bg-brand-orange/15 items-center justify-center">
-              <ShieldCheck className="w-4 h-4 text-brand-orange" />
-            </span>
-            <div>
-              <div className="text-xs uppercase tracking-[0.18em] text-brand-orange font-semibold">
-                Saradnja sa osiguranjima
-              </div>
-              <div className="font-display font-bold text-neutral-900 dark:text-white">
-                Procena prihvatljiva za osiguravajuća društva
-              </div>
+        <div className="flex items-center gap-3 mb-6">
+          <span className="inline-flex w-9 h-9 rounded-full bg-brand-orange/15 items-center justify-center">
+            <ShieldCheck className="w-4 h-4 text-brand-orange" />
+          </span>
+          <div>
+            <div className="text-xs uppercase tracking-[0.18em] text-brand-orange font-semibold">
+              Saradnja sa osiguranjima
             </div>
-          </div>
-          <div className="flex items-center gap-2 text-xs text-neutral-500 dark:text-neutral-400">
-            <Star className="w-3.5 h-3.5 text-brand-orange fill-brand-orange" />
-            <span>
-              Trenutni partner: <strong className="text-neutral-900 dark:text-white">Globos osiguranje</strong>
-            </span>
+            <div className="font-display font-bold text-neutral-900 dark:text-white">
+              Sarađujemo sa svim osiguravajućim kućama u Srbiji
+            </div>
           </div>
         </div>
 
@@ -54,18 +48,9 @@ export default function Authority() {
                   }`}
                 />
                 <span className="text-sm font-semibold whitespace-nowrap">{p.name}</span>
-                {p.status === 'partner' && (
-                  <span className="text-[10px] uppercase tracking-wider font-bold opacity-90">
-                    Aktivan
-                  </span>
-                )}
               </motion.div>
             ))}
           </div>
-        </div>
-
-        <div className="mt-6 text-xs text-neutral-500 dark:text-neutral-400 text-center">
-          Cilj 2026: proširenje saradnje sa svim glavnim osiguravajućim kućama u Srbiji.
         </div>
       </div>
     </section>

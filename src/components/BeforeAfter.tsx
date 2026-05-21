@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { MoveHorizontal, TrendingUp, ArrowRight, Camera, AlertTriangle } from 'lucide-react';
+import { MoveHorizontal, TrendingUp, ArrowRight, AlertTriangle } from 'lucide-react';
 import { formatRSD } from '@/lib/utils';
 
 interface CaseData {
@@ -19,7 +19,7 @@ interface CaseData {
 
 const CASES: CaseData[] = [
   {
-    title: 'Bočni udar — kompletna desna strana',
+    title: 'Bočni udar - kompletna desna strana',
     vehicle: 'Volkswagen Passat B8 · 2018',
     insurance: 85000,
     actual: 215000,
@@ -30,7 +30,7 @@ const CASES: CaseData[] = [
     image: '/img/damage-passat.webp',
   },
   {
-    title: 'Prednji udar — udarac u parkirano vozilo',
+    title: 'Prednji udar - udarac u parkirano vozilo',
     vehicle: 'Škoda Octavia III · 2019',
     insurance: 140000,
     actual: 320000,
@@ -41,7 +41,7 @@ const CASES: CaseData[] = [
     image: '/img/damage-octavia.webp',
   },
   {
-    title: 'Parking oštećenje — više udaraca',
+    title: 'Parking oštećenje - više udaraca',
     vehicle: 'Hyundai Tucson · 2021',
     insurance: 18000,
     actual: 62000,
@@ -237,7 +237,7 @@ function DamageImage({
     <div className="relative rounded-2xl overflow-hidden aspect-[4/3] flex items-end p-5 bg-neutral-900">
       <Image
         src={src}
-        alt={`Foto oštećenja — ${vehicle}`}
+        alt={`Foto oštećenja - ${vehicle}`}
         fill
         className="object-cover"
         sizes="(min-width: 768px) 50vw, 100vw"
@@ -256,11 +256,6 @@ function DamageImage({
           backgroundSize: '3px 3px',
         }}
       />
-      {/* Corner badge */}
-      <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/70 backdrop-blur text-white text-[10px] font-bold uppercase tracking-wider z-10">
-        <Camera className="w-3 h-3" />
-        Demo foto
-      </div>
       {/* Bottom label */}
       <div className="relative z-10 text-white">
         <div className="text-xs uppercase tracking-wider font-bold opacity-90">{label}</div>

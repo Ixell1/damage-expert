@@ -61,7 +61,7 @@ export default function Contact() {
             </div>
             <div className="font-display text-xl font-bold mt-1">{SITE.phoneDisplay}</div>
             <div className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
-              Brza poruka, slike — sve u jednom mestu
+              Brza poruka, slike - sve u jednom mestu
             </div>
             <div className="mt-4 inline-flex items-center gap-1 text-brand-orange font-semibold text-sm">
               Otvori chat
@@ -130,7 +130,7 @@ export default function Contact() {
                 </div>
                 <div className="font-display text-lg font-bold mt-1">{SITE.hours}</div>
                 <p className="text-sm text-neutral-400 mt-2 leading-relaxed">
-                  Hitni slučajevi van radnog vremena — pošaljite WhatsApp poruku ili Viber, javimo
+                  Hitni slučajevi van radnog vremena - pošaljite WhatsApp poruku ili Viber, javimo
                   se čim budemo u mogućnosti.
                 </p>
                 <a href="#prijava" className="mt-4 btn-primary">

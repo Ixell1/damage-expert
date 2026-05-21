@@ -18,7 +18,7 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   metadataBase: new URL('https://proceniteljstete.rs'),
   title: {
-    default: 'Procenitelj štete — Damage Expert | Profesionalna procena štete na vozilima Niš',
+    default: 'Procenitelj štete - Damage Expert | Profesionalna procena štete na vozilima Niš',
     template: '%s · Damage Expert',
   },
   description:
@@ -62,14 +62,14 @@ export const metadata: Metadata = {
     locale: 'sr_RS',
     url: 'https://proceniteljstete.rs',
     siteName: 'Damage Expert',
-    title: 'Procenitelj štete — Damage Expert | Zapisnik za 24h | Niš',
+    title: 'Procenitelj štete - Damage Expert | Zapisnik za 24h | Niš',
     description:
       'Procenitelj štete na vozilima Niš. Damage Expert. Audatex sistem. Dolazimo na adresu. Zapisnik za 24h. Jedini sa online prijavom štete u Srbiji.',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Damage Expert — Procenitelj štete' }],
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Damage Expert - Procenitelj štete' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Procenitelj štete — Damage Expert',
+    title: 'Procenitelj štete - Damage Expert',
     description:
       'Procenitelj štete na vozilima u Nišu. Zapisnik za 24h. Audatex sistem.',
     images: ['/og.png'],
@@ -105,7 +105,7 @@ const jsonLd = {
     {
       '@type': 'LocalBusiness',
       '@id': 'https://proceniteljstete.rs/#business',
-      name: 'Damage Expert — Marko Janković PR Niš',
+      name: 'Damage Expert - Marko Janković PR Niš',
       image: 'https://proceniteljstete.rs/og.png',
       url: 'https://proceniteljstete.rs',
       telephone: '+381641118914',
@@ -140,7 +140,7 @@ const jsonLd = {
         },
       ],
       description:
-        'Procenitelj štete — Damage Expert. Profesionalna procena štete na vozilima u Nišu i okolini. Audatex sistem, dolazak na adresu, zapisnik za 24h. Jedini u Srbiji sa online prijavom štete.',
+        'Procenitelj štete - Damage Expert. Profesionalna procena štete na vozilima u Nišu i okolini. Audatex sistem, dolazak na adresu, zapisnik za 24h. Jedini u Srbiji sa online prijavom štete.',
       sameAs: [],
     },
     {

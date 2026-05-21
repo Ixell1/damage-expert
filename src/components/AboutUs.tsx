@@ -16,19 +16,19 @@ const TIMELINE = [
   {
     year: '2014–2019',
     title: 'Saobraćajni fakultet',
-    desc: 'Diplomirao na Saobraćajnom fakultetu — stručna osnova za razumevanje konstrukcije vozila, propisa i procesa procene štete.',
+    desc: 'Diplomirao na Saobraćajnom fakultetu - stručna osnova za razumevanje konstrukcije vozila, propisa i procesa procene štete.',
     icon: GraduationCap,
   },
   {
     year: '2019–2024',
     title: '5+ godina u Sixt rent a car',
-    desc: 'Rad na rukovodećim pozicijama u jednoj od najvećih rent a car kompanija u Evropi. Obrada hiljada slučajeva štete na flotama vozila — od ogrebotina na parkingu do totalnih šteta.',
+    desc: 'Rad na rukovodećim pozicijama u jednoj od najvećih rent a car kompanija u Evropi. Obrada hiljada slučajeva štete na flotama vozila - od ogrebotina na parkingu do totalnih šteta.',
     icon: Briefcase,
   },
   {
     year: '2025',
     title: 'Audatex sertifikacija',
-    desc: 'Obuka i licenca za rad u Audatex sistemu — softveru koji koriste osiguravajuća društva širom Evrope za standardizovanu procenu štete na vozilima.',
+    desc: 'Obuka i licenca za rad u Audatex sistemu - softveru koji koriste osiguravajuća društva širom Evrope za standardizovanu procenu štete na vozilima.',
     icon: Cpu,
   },
   {
@@ -75,7 +75,7 @@ export default function AboutUs() {
           </h2>
           <p className="mt-4 text-lg text-neutral-600 dark:text-neutral-400 text-pretty">
             Damage Expert nije „još jedna agencija". Ovo je preduzetnički poduhvat baziran na
-            višegodišnjem iskustvu u industriji obrade šteta — sa jasnim ciljem da procena štete u
+            višegodišnjem iskustvu u industriji obrade šteta - sa jasnim ciljem da procena štete u
             Srbiji postane brza, transparentna i moderna.
           </p>
         </div>
@@ -108,7 +108,7 @@ export default function AboutUs() {
                 </div>
 
                 <p className="text-neutral-300 leading-relaxed text-pretty">
-                  „U rent a car industriji sam obradio hiljade slučajeva štete — od malih ogrebotina
+                  „U rent a car industriji sam obradio hiljade slučajeva štete - od malih ogrebotina
                   do totalno havarisanih vozila. Tu nema mesta za grešku, jer iza svake procene stoji
                   konkretan račun ka klijentu ili lizingu. Tu rigoroznost donosim u svaki zapisnik
                   koji izrađujem za Damage Expert."

@@ -47,7 +47,7 @@ export default function BlogTeaser() {
           </div>
           <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-neutral-300 dark:border-neutral-700 text-xs font-semibold">
             <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse" />
-            Uskoro — Blog sa praktičnim vodičima
+            Uskoro - Blog sa praktičnim vodičima
           </span>
         </div>
 

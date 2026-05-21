@@ -53,7 +53,7 @@ export default function UspBanner() {
                 .
               </p>
               <a href="#prijava" className="mt-7 btn-primary">
-                Probaj online prijavu — 2 minuta
+                Probaj online prijavu - 2 minuta
                 <ArrowRight className="w-4 h-4" />
               </a>
             </div>

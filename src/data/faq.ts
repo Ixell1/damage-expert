@@ -27,7 +27,7 @@ export const FAQ: FaqItem[] = [
   {
     question: 'Koji softver koristite za procenu?',
     answer:
-      'Audatex — međunarodno priznat sistem za procenu štete na vozilima koji koriste osiguravajuća društva širom Evrope. Procena je standardizovana, transparentna i prihvatljiva za sve osiguravače.',
+      'Audatex - međunarodno priznat sistem za procenu štete na vozilima koji koriste osiguravajuća društva širom Evrope. Procena je standardizovana, transparentna i prihvatljiva za sve osiguravače.',
   },
   {
     question: 'Da li radite i naplatu štete od osiguranja?',

@@ -1,6 +1,6 @@
 export const SITE = {
   name: 'Damage Expert',
-  fullName: 'Damage Expert — Marko Janković PR Niš',
+  fullName: 'Damage Expert - Marko Janković PR Niš',
   tagline: 'Profesionalna procena štete na vozilima',
   phone: '+381641118914',
   phoneDisplay: '+381 64 11 18 914',
