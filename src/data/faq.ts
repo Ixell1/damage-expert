@@ -47,7 +47,7 @@ export const FAQ: FaqItem[] = [
   {
     question: 'Koje je Vaše obrazovanje i iskustvo?',
     answer:
-      'Marko Janković je diplomirao na Saobraćajnom fakultetu i ima preko 5 godina iskustva u rent a car industriji (Sixt rent a car) na rukovodećim pozicijama gde se bavio obradom šteta na flotama vozila.',
+      'Marko Janković je diplomirao na Saobraćajnom fakultetu i ima preko 5 godina iskustva u najvećoj rent a car kompaniji na svetu na rukovodećim pozicijama gde se bavio obradom šteta na flotama vozila.',
   },
   {
     question: 'Kako se obračunava totalna a kako delimična šteta?',

@@ -11,7 +11,7 @@ export default function Footer() {
             <Logo />
             <p className="mt-4 text-sm text-neutral-400 max-w-md leading-relaxed">
               {SITE.fullName}. Profesionalna procena štete na vozilima u Audatex sistemu.
-              Niš i okolina. Saobraćajni fakultet · Iskustvo iz Sixt rent a car industrije.
+              Niš i okolina. Saobraćajni fakultet · Iskustvo iz najveće rent a car kompanije na svetu.
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
               {SITE.serviceArea.map((c) => (

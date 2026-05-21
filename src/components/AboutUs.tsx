@@ -21,8 +21,8 @@ const TIMELINE = [
   },
   {
     year: '2019–2024',
-    title: '5+ godina u Sixt rent a car',
-    desc: 'Rad na rukovodećim pozicijama u jednoj od najvećih rent a car kompanija u Evropi. Obrada hiljada slučajeva štete na flotama vozila - od ogrebotina na parkingu do totalnih šteta.',
+    title: '5+ godina u rent a car industriji',
+    desc: 'Rad na rukovodećim pozicijama u jednoj od najvećih rent a car kompanija na svetu. Obrada hiljada slučajeva štete na flotama vozila - od ogrebotina na parkingu do totalnih šteta.',
     icon: Briefcase,
   },
   {

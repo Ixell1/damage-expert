@@ -21,7 +21,7 @@ const USPS = [
   },
   {
     icon: Briefcase,
-    title: '5+ god. u Sixt rent a car',
+    title: '5+ god. u najvećoj rent a car kompaniji',
     desc: 'Iskustvo iz industrije obrade šteta na velikim flotama. Hiljade slučajeva.',
   },
   {

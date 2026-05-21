@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     template: '%s · Damage Expert',
   },
   description:
-    'Procenitelj štete na vozilima u Nišu i okolini. Damage Expert. Audatex procena koju prihvataju sve osiguravajuće kuće u Srbiji. Zapisnik za 24h, dolazak na adresu, 5+ godina iskustva (Sixt rent a car), Saobraćajni fakultet. Jedini sa online prijavom štete u Srbiji.',
+    'Procenitelj štete na vozilima u Nišu i okolini. Damage Expert. Audatex procena koju prihvataju sve osiguravajuće kuće u Srbiji. Zapisnik za 24h, dolazak na adresu, 5+ godina iskustva u rent a car industriji, Saobraćajni fakultet. Jedini sa online prijavom štete u Srbiji.',
   applicationName: 'Damage Expert',
   authors: [{ name: 'Damage Expert Marko Janković PR Niš', url: 'https://proceniteljstete.rs' }],
   creator: 'Damage Expert - Marko Janković PR Niš',
@@ -311,7 +311,7 @@ const jsonLd = {
         '@type': 'Occupation',
         name: 'Procenitelj štete na vozilima',
         occupationLocation: { '@type': 'City', name: 'Niš' },
-        skills: 'Audatex sistem, procena štete, Sixt rent a car iskustvo, Saobraćajni fakultet',
+        skills: 'Audatex sistem, procena štete, rent a car industrija iskustvo, Saobraćajni fakultet',
         experienceRequirements: '5+ godina u rent a car industriji',
       },
     },

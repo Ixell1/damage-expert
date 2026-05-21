@@ -20,7 +20,7 @@ Procena štete na vozilima · Audatex sistem · Zapisnik za 24h · Niš i okolin
 4. **Interaktivni dijagram vozila** — klikom na deo dobijaš prosečnu cenu (top + side view)
 5. **Kalkulator procene** — multi-step sa klasom vozila + selektovanjem delova + nivoom oštećenja
 6. **Kako funkcioniše** — 3 koraka (prijava → pregled → zapisnik)
-7. **Zašto Damage Expert** — USP grid sa Saobraćajni fakultet + Sixt rent a car
+7. **Zašto Damage Expert** — USP grid sa Saobraćajni fakultet + rent a car industrija
 8. **Pre/Posle** — interaktivni primeri razlike između procene osiguranja i Audatex procene
 9. **Prijava štete online** — 5-step wizard sa upload-om i WhatsApp/Viber/Email submit
 10. **FAQ** — sa JSON-LD schema za Google rich results
