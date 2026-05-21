@@ -1,0 +1,38 @@
+{
+  "name": "Damage Expert - Procenitelj štete",
+  "short_name": "Damage Expert",
+  "description": "Procenitelj štete na vozilima u Nišu i okolini. Audatex procena, zapisnik za 24h.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FF6A00",
+  "lang": "sr-Latn-RS",
+  "dir": "ltr",
+  "orientation": "portrait",
+  "scope": "/",
+  "categories": ["automotive", "business", "professional"],
+  "icons": [
+    {
+      "src": "/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo-mark.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

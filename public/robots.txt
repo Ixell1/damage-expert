@@ -1,3 +1,49 @@
+# robots.txt za https://proceniteljstete.rs
+# Damage Expert - Procenitelj štete na vozilima
+
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Googlebot - eksplicitno dozvoljen
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Googlebot za slike - dozvoljen
+User-agent: Googlebot-Image
+Allow: /img/
+Allow: /logo-mark.png
+Allow: /logo-full.png
+Allow: /og.png
+
+# Bingbot
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Yandex
+User-agent: YandexBot
+Allow: /
+Crawl-delay: 1
+
+# AI/LLM crawlers - dozvoljeni (zelimo da nas Perplexity, ChatGPT, Claude prikazuju)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Sitemap
 Sitemap: https://proceniteljstete.rs/sitemap.xml
