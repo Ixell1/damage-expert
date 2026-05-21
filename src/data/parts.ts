@@ -37,7 +37,7 @@ export const PARTS: Part[] = [
     name: 'Hauba (poklopac motora)',
     description: 'Ispravljanje, antikorozivna zaštita i farbanje haube. Zamena kod jakog oštećenja.',
     range: { min: 18000, max: 90000 },
-    multiplier: { lakse: 0.5, srednje: 1, tesko: 1.7 },
+    multiplier: { lakse: 0.4, srednje: 1, tesko: 1.7 },
     category: 'gornji',
   },
   {
@@ -45,7 +45,7 @@ export const PARTS: Part[] = [
     name: 'Gepek vrata',
     description: 'Vrata prtljažnika, popravka udubljenja i farbanje, eventualno zamena.',
     range: { min: 18000, max: 95000 },
-    multiplier: { lakse: 0.5, srednje: 1, tesko: 1.7 },
+    multiplier: { lakse: 0.4, srednje: 1, tesko: 1.7 },
     category: 'zadnji',
   },
   {
@@ -53,7 +53,7 @@ export const PARTS: Part[] = [
     name: 'Krov vozila',
     description: 'Limarsko ispravljanje udubljenja i kompletno farbanje krova.',
     range: { min: 22000, max: 110000 },
-    multiplier: { lakse: 0.5, srednje: 1, tesko: 1.6 },
+    multiplier: { lakse: 0.4, srednje: 1, tesko: 1.6 },
     category: 'gornji',
   },
   {
@@ -109,7 +109,7 @@ export const PARTS: Part[] = [
     name: 'Levi far',
     description: 'Halogeni far 8.000–30.000 RSD, LED/Bi-Xenon premium markama može i preko 100.000 RSD.',
     range: { min: 8000, max: 180000 },
-    multiplier: { lakse: 0.3, srednje: 1, tesko: 2.2 },
+    multiplier: { lakse: 0.4, srednje: 1, tesko: 2.2 },
     category: 'prednji',
   },
   {
@@ -117,7 +117,7 @@ export const PARTS: Part[] = [
     name: 'Desni far',
     description: 'Halogeni far 8.000–30.000 RSD, LED/Bi-Xenon premium markama može i preko 100.000 RSD.',
     range: { min: 8000, max: 180000 },
-    multiplier: { lakse: 0.3, srednje: 1, tesko: 2.2 },
+    multiplier: { lakse: 0.4, srednje: 1, tesko: 2.2 },
     category: 'prednji',
   },
   {
@@ -125,7 +125,7 @@ export const PARTS: Part[] = [
     name: 'Leva stop lampa',
     description: 'Zamena kompletne zadnje stop lampe.',
     range: { min: 5000, max: 28000 },
-    multiplier: { lakse: 0.3, srednje: 1, tesko: 2 },
+    multiplier: { lakse: 0.4, srednje: 1, tesko: 2 },
     category: 'zadnji',
   },
   {
@@ -133,7 +133,7 @@ export const PARTS: Part[] = [
     name: 'Desna stop lampa',
     description: 'Zamena kompletne zadnje stop lampe.',
     range: { min: 5000, max: 28000 },
-    multiplier: { lakse: 0.3, srednje: 1, tesko: 2 },
+    multiplier: { lakse: 0.4, srednje: 1, tesko: 2 },
     category: 'zadnji',
   },
   {
@@ -141,7 +141,7 @@ export const PARTS: Part[] = [
     name: 'Levi retrovizor',
     description: 'Kompletan retrovizor sa kućištem (mehanički ili električni).',
     range: { min: 4500, max: 35000 },
-    multiplier: { lakse: 0.3, srednje: 1, tesko: 1.8 },
+    multiplier: { lakse: 0.4, srednje: 1, tesko: 1.8 },
     category: 'bocni',
   },
   {
@@ -149,7 +149,7 @@ export const PARTS: Part[] = [
     name: 'Desni retrovizor',
     description: 'Kompletan retrovizor sa kućištem (mehanički ili električni).',
     range: { min: 4500, max: 35000 },
-    multiplier: { lakse: 0.3, srednje: 1, tesko: 1.8 },
+    multiplier: { lakse: 0.4, srednje: 1, tesko: 1.8 },
     category: 'bocni',
   },
   {
@@ -181,7 +181,7 @@ export const PARTS: Part[] = [
     name: 'Felna (alu/čelična)',
     description: 'Ravnanje ili zamena felne, eventualno sa balansiranjem.',
     range: { min: 3500, max: 45000 },
-    multiplier: { lakse: 0.3, srednje: 1, tesko: 1.8 },
+    multiplier: { lakse: 0.4, srednje: 1, tesko: 1.8 },
     category: 'donji',
   },
   {

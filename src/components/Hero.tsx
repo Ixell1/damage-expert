@@ -140,6 +140,14 @@ export default function Hero() {
             <div className="relative">
               <div className="absolute -inset-6 bg-gradient-to-br from-brand-orange/30 to-transparent rounded-3xl blur-2xl" aria-hidden />
               <div className="relative card p-6 md:p-8 bg-white/80 dark:bg-brand-ink/80 backdrop-blur">
+                <div className="mb-6">
+                  <div className="font-display text-xl md:text-2xl font-extrabold leading-tight">
+                    Procena u 3 koraka
+                  </div>
+                  <div className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
+                    Bez odugovlačenja i čekanja.
+                  </div>
+                </div>
                 <Timeline />
 
                 <div className="mt-6 pt-6 border-t border-neutral-200 dark:border-neutral-800 flex items-center gap-3 text-sm">

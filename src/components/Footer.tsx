@@ -102,6 +102,20 @@ export default function Footer() {
             <span>Audatex sistem</span>
           </div>
         </div>
+
+        <div className="mt-4 pt-4 border-t border-neutral-900/70 text-center text-[11px] text-neutral-600">
+          Sajt kreirao{' '}
+          <span className="text-neutral-400 font-semibold">Ilija Jovanović PR</span> ·{' '}
+          <a
+            href="https://nobs.digital"
+            target="_blank"
+            rel="noopener"
+            className="text-brand-orange font-semibold hover:underline"
+          >
+            NoBS Digital
+          </a>{' '}
+          agencija za marketing
+        </div>
       </div>
     </footer>
   );
