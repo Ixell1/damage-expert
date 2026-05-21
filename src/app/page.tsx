@@ -1,11 +1,12 @@
 import Nav from '@/components/Nav';
 import Hero from '@/components/Hero';
 import Authority from '@/components/Authority';
+import UspBanner from '@/components/UspBanner';
 import Services from '@/components/Services';
 import CarDiagram from '@/components/CarDiagram';
 import Calculator from '@/components/Calculator';
 import Process from '@/components/Process';
-import WhyUs from '@/components/WhyUs';
+import AboutUs from '@/components/AboutUs';
 import ClaimWizard from '@/components/ClaimWizard';
 import BeforeAfter from '@/components/BeforeAfter';
 import Faq from '@/components/Faq';
@@ -21,11 +22,12 @@ export default function Page() {
       <main>
         <Hero />
         <Authority />
+        <UspBanner />
         <Services />
         <CarDiagram />
         <Calculator />
         <Process />
-        <WhyUs />
+        <AboutUs />
         <BeforeAfter />
         <ClaimWizard />
         <Faq />

@@ -10,8 +10,8 @@ const LINKS = [
   { href: '#usluge', label: 'Usluge' },
   { href: '#dijagram', label: 'Delovi vozila' },
   { href: '#kalkulator', label: 'Kalkulator' },
+  { href: '#o-nama', label: 'O nama' },
   { href: '#prijava', label: 'Prijavi štetu' },
-  { href: '#blog', label: 'Edukacija' },
   { href: '#kontakt', label: 'Kontakt' },
 ];
 

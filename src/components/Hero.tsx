@@ -1,13 +1,22 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, Phone, Clock, MapPin, ShieldCheck, GraduationCap, Car } from 'lucide-react';
+import {
+  ArrowRight,
+  Phone,
+  Clock,
+  MapPin,
+  ShieldCheck,
+  GraduationCap,
+  Car,
+  Sparkles,
+} from 'lucide-react';
 import { SITE } from '@/data/site';
 
 export default function Hero() {
   return (
     <section id="top" className="relative pt-28 md:pt-36 pb-16 md:pb-24 overflow-hidden">
-      {/* Decorative grid background */}
+      {/* Decorative background */}
       <div className="absolute inset-0 -z-10 grain opacity-60" aria-hidden />
       <div
         aria-hidden
@@ -18,30 +27,60 @@ export default function Hero() {
         className="absolute -bottom-40 -left-32 w-[480px] h-[480px] bg-brand-orange/10 rounded-full blur-3xl -z-10"
       />
 
-      <div className="container-x">
+      {/* Transparent car silhouette background */}
+      <CarBgSilhouette />
+
+      <div className="container-x relative">
+        {/* Subline "Procenitelj štete — Damage Expert" */}
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="mb-4 flex items-center gap-2 text-xs md:text-sm font-mono uppercase tracking-[0.3em] text-brand-orange"
+        >
+          <span className="w-8 h-px bg-brand-orange" />
+          Procenitelj štete · Damage Expert
+        </motion.div>
+
         {/* Badge row */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.5, delay: 0.05 }}
           className="flex flex-wrap items-center gap-2 mb-8"
         >
           <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-orange text-xs font-semibold">
             <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse" />
             Slobodni termini ove nedelje
           </span>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-xs font-semibold">
+          <a
+            href="#o-nama"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-xs font-semibold hover:bg-brand-orange dark:hover:bg-brand-orange dark:hover:text-white transition-colors"
+          >
             <GraduationCap className="w-3.5 h-3.5" />
             Saobraćajni fakultet
-          </span>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 text-xs font-semibold">
+          </a>
+          <a
+            href="#o-nama"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 text-xs font-semibold hover:border-brand-orange hover:text-brand-orange transition-colors"
+          >
             <Car className="w-3.5 h-3.5" />
             5+ god. Sixt rent a car
-          </span>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 text-xs font-semibold">
+          </a>
+          <a
+            href="#o-nama"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 text-xs font-semibold hover:border-brand-orange hover:text-brand-orange transition-colors"
+          >
             <ShieldCheck className="w-3.5 h-3.5" />
             Audatex sistem
-          </span>
+          </a>
+          <a
+            href="#o-nama"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 text-xs font-semibold hover:border-brand-orange hover:text-brand-orange transition-colors"
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            O nama
+          </a>
         </motion.div>
 
         <div className="grid lg:grid-cols-12 gap-10 items-center">
@@ -99,7 +138,7 @@ export default function Hero() {
             >
               <Stat number="24h" label="Maks. izrada zapisnika" />
               <Stat number="50km" label="Radijus pokrivanja Niša" />
-              <Stat number="10.000" label="RSD fiksna cena (besplatna konsultacija)" />
+              <Stat number="+20%" label="Više od proseka konkurencije" />
             </motion.div>
           </div>
 
@@ -119,7 +158,7 @@ export default function Hero() {
                       Tipičan slučaj
                     </div>
                     <div className="font-display text-xl font-bold mt-1">
-                      Vožnja → Niš → Zapisnik
+                      Izlazak na teren → Procena → Zapisnik
                     </div>
                   </div>
                   <div className="w-12 h-12 rounded-2xl bg-brand-orange/15 flex items-center justify-center">
@@ -157,8 +196,8 @@ function Stat({ number, label }: { number: string; label: string }) {
 
 function Timeline() {
   const steps = [
-    { time: '0h', label: 'Prijava štete / poziv' },
-    { time: '< 6h', label: 'Pregled vozila (teren ili kancelarija)' },
+    { time: '0h', label: 'Izlazak na teren ili dolazak u kancelariju' },
+    { time: '< 6h', label: 'Stručna procena oštećenja u Audatex sistemu' },
     { time: '< 24h', label: 'Zapisnik dostavljen na e-mail' },
   ];
   return (
@@ -179,6 +218,43 @@ function Timeline() {
           </li>
         ))}
       </ol>
+    </div>
+  );
+}
+
+function CarBgSilhouette() {
+  return (
+    <div
+      className="absolute inset-0 -z-[5] pointer-events-none flex items-end justify-center overflow-hidden"
+      aria-hidden
+    >
+      <svg
+        viewBox="0 0 1400 500"
+        className="w-full h-auto opacity-[0.06] dark:opacity-[0.08]"
+        preserveAspectRatio="xMidYMax meet"
+      >
+        <defs>
+          <linearGradient id="carBgGrad" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stopColor="currentColor" stopOpacity="0" />
+            <stop offset="0.5" stopColor="currentColor" stopOpacity="0.6" />
+            <stop offset="1" stopColor="currentColor" stopOpacity="1" />
+          </linearGradient>
+        </defs>
+        {/* Side view car */}
+        <g fill="url(#carBgGrad)" className="text-neutral-900 dark:text-white">
+          {/* Body */}
+          <path d="M 80 380 L 200 380 Q 215 280 380 270 L 600 240 Q 700 215 870 230 L 1070 270 Q 1200 295 1240 350 L 1320 360 L 1320 430 L 80 430 Z" />
+          {/* Roof curve */}
+          <path d="M 400 270 Q 600 200 870 230 L 850 270 L 425 270 Z" opacity="0.5" />
+        </g>
+        {/* Wheels */}
+        <g className="text-neutral-900 dark:text-white">
+          <circle cx="320" cy="430" r="55" fill="currentColor" opacity="0.7" />
+          <circle cx="320" cy="430" r="28" fill="#FF6A00" opacity="0.4" />
+          <circle cx="1080" cy="430" r="55" fill="currentColor" opacity="0.7" />
+          <circle cx="1080" cy="430" r="28" fill="#FF6A00" opacity="0.4" />
+        </g>
+      </svg>
     </div>
   );
 }

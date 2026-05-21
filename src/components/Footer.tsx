@@ -48,6 +48,11 @@ export default function Footer() {
                 </a>
               </li>
               <li>
+                <a href="#o-nama" className="text-neutral-400 hover:text-brand-orange">
+                  O nama · Marko Janković
+                </a>
+              </li>
+              <li>
                 <a href="#prijava" className="text-neutral-400 hover:text-brand-orange">
                   Prijavi štetu online
                 </a>
