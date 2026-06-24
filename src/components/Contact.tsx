@@ -20,7 +20,7 @@ export default function Contact() {
             Pozovite, ili pišite. <span className="text-brand-orange">Brz odgovor.</span>
           </h2>
           <p className="mt-4 text-lg text-neutral-600 dark:text-neutral-400">
-            Pon–Sub · 09:00–17:00 · Niš
+            {SITE.hours} · Niš
           </p>
         </div>
 

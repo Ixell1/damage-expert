@@ -90,5 +90,5 @@ Konačni iznos procene radi isključivo procenitelj na osnovu konkretnog vozila.
 
 ---
 
-**Kontakt:** Marko Janković · +381 64 11 18 914 · jankovic.marko0202@gmail.com
+**Kontakt:** Marko Janković · +381 64 11 18 914 · marko.jankovic@proceniteljstete.rs
 **Adresa:** Vazduhoplovaca 24, Aerodrom Konstantin Veliki, Niš

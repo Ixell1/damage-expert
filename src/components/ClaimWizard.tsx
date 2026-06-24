@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ChevronLeft,
@@ -82,9 +82,52 @@ export default function ClaimWizard() {
   const [step, setStep] = useState<Step>(0);
   const [data, setData] = useState<FormData>(initial);
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  // Track da li je već poslata lead-capture (parcijalna) prijava sa kontakta,
+  // da ne šaljemo isti lead dva puta kad korisnik prelazi između koraka.
+  const leadSentRef = useRef(false);
 
   const next = () => setStep((s) => Math.min(4, s + 1) as Step);
   const prev = () => setStep((s) => Math.max(0, s - 1) as Step);
+
+  /**
+   * Pošalji email backend-u. Ako je `partial=true`, šaljemo lead capture
+   * (samo kontakt podaci). Ako je false, šaljemo full prijavu.
+   */
+  const sendToServer = async (partial: boolean): Promise<boolean> => {
+    try {
+      const damageTypeLabel = DAMAGE_TYPES.find((d) => d.id === data.damageType)?.label;
+      const payload = {
+        fullName: data.fullName,
+        phone: data.phone,
+        email: data.email,
+        city: data.city,
+        isUrgent: data.isUrgent,
+        damageType: data.damageType,
+        damageTypeLabel,
+        brand: data.brand,
+        model: data.model,
+        year: data.year,
+        km: data.km,
+        insurance: data.insurance,
+        hasPoliceReport: data.hasPoliceReport,
+        damagedParts: data.damagedParts,
+        damageDescription: data.damageDescription,
+        photoCount: data.files.length,
+        partial,
+      };
+      const res = await fetch('/api/prijava', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const json = await res.json();
+      return !!json.ok;
+    } catch (e) {
+      console.error('Slanje prijave nije uspelo:', e);
+      return false;
+    }
+  };
 
   const update = <K extends keyof FormData>(key: K, value: FormData[K]) =>
     setData((d) => ({ ...d, [key]: value }));
@@ -107,12 +150,13 @@ export default function ClaimWizard() {
   const removeFile = (i: number) =>
     setData((d) => ({ ...d, files: d.files.filter((_, idx) => idx !== i) }));
 
+  // New order: 0=Kontakt (lead capture FIRST), 1=Tip štete, 2=Vozilo, 3=Delovi, 4=Foto+submit
   const canProceed = useMemo(() => {
-    if (step === 0) return !!data.damageType;
-    if (step === 1) return !!(data.brand && data.model && data.year);
-    if (step === 2) return data.damagedParts.length > 0;
-    if (step === 3) return true; // files optional
-    if (step === 4) return !!(data.fullName && data.phone);
+    if (step === 0) return !!(data.fullName && data.phone); // kontakt obavezan na korak 1
+    if (step === 1) return !!data.damageType;
+    if (step === 2) return !!(data.brand && data.model && data.year);
+    if (step === 3) return data.damagedParts.length > 0;
+    if (step === 4) return true; // files optional
     return true;
   }, [step, data]);
 
@@ -140,12 +184,32 @@ export default function ClaimWizard() {
       ``,
       `📷 Broj fotografija: ${data.files.length}`,
       ``,
-      `- Poslato preko damageexpert.rs`,
+      `- Poslato preko proceniteljstete.rs`,
     ].filter(Boolean);
     return lines.join('\n');
   };
 
-  const submit = () => {
+  /**
+   * Kad korisnik klikne "Dalje" sa koraka 0 (kontakt) na korak 1, šaljemo
+   * lead-capture email u pozadini ne blokirajući UX. Ovo osigurava da i
+   * korisnici koji ne završe celu prijavu, ostave lead.
+   */
+  const handleNext = async () => {
+    if (step === 0 && !leadSentRef.current && data.fullName && data.phone) {
+      leadSentRef.current = true;
+      // Fire-and-forget - ne čekamo response da ne blokiramo prelaz na korak 2
+      sendToServer(true).catch(() => {
+        leadSentRef.current = false; // reset ako padne, da pokušamo opet sledeći put
+      });
+    }
+    next();
+  };
+
+  const submit = async () => {
+    setSending(true);
+    // Ako lead capture već nije poslat (npr. korisnik je preskočio neki klik), pošalji full
+    await sendToServer(false);
+    setSending(false);
     setSubmitted(true);
   };
 
@@ -210,9 +274,60 @@ export default function ClaimWizard() {
                 transition={{ duration: 0.25 }}
                 className="min-h-[360px]"
               >
+                {/* STEP 1 (index 0): Kontakt podaci - lead capture FIRST */}
                 {step === 0 && (
                   <div>
-                    <StepHeader number={1} title="Tip štete" subtitle="Šta se dogodilo?" />
+                    <StepHeader
+                      number={1}
+                      title="Kontakt podaci"
+                      subtitle="Da Vas brzo kontaktiramo - prvo nam ostavite kontakt"
+                    />
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <Field
+                        label="Ime i prezime *"
+                        value={data.fullName}
+                        onChange={(v) => update('fullName', v)}
+                        placeholder="Marko Marković"
+                      />
+                      <Field
+                        label="Telefon *"
+                        value={data.phone}
+                        onChange={(v) => update('phone', v)}
+                        placeholder="+381 6X XXX XXXX"
+                        type="tel"
+                      />
+                      <Field
+                        label="Email (opciono)"
+                        value={data.email}
+                        onChange={(v) => update('email', v)}
+                        placeholder="ime@email.com"
+                        type="email"
+                      />
+                      <Field
+                        label="Grad / lokacija"
+                        value={data.city}
+                        onChange={(v) => update('city', v)}
+                        placeholder="Niš"
+                      />
+                    </div>
+                    <div className="mt-4">
+                      <Checkbox
+                        checked={data.isUrgent}
+                        onChange={(v) => update('isUrgent', v)}
+                        label="🚨 Hitan slučaj - potreban mi je zapisnik istog dana"
+                      />
+                    </div>
+                    <div className="mt-6 p-4 rounded-xl bg-brand-orange/5 border border-brand-orange/20 text-xs text-neutral-700 dark:text-neutral-300">
+                      Slažete se da Vas kontaktiramo radi izrade procene. Vaši podaci se koriste
+                      isključivo za potrebe izrade zapisnika i ne prosleđuju se trećim licima.
+                    </div>
+                  </div>
+                )}
+
+                {/* STEP 2 (index 1): Tip štete */}
+                {step === 1 && (
+                  <div>
+                    <StepHeader number={2} title="Tip štete" subtitle="Šta se dogodilo?" />
                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
                       {DAMAGE_TYPES.map((t) => (
                         <button
@@ -235,9 +350,10 @@ export default function ClaimWizard() {
                   </div>
                 )}
 
-                {step === 1 && (
+                {/* STEP 3 (index 2): Vozilo */}
+                {step === 2 && (
                   <div>
-                    <StepHeader number={2} title="Podaci o vozilu" subtitle="Marka, model, godište" />
+                    <StepHeader number={3} title="Podaci o vozilu" subtitle="Marka, model, godište" />
                     <div className="grid sm:grid-cols-2 gap-4">
                       <Field label="Marka" value={data.brand} onChange={(v) => update('brand', v)} placeholder="npr. Volkswagen" />
                       <Field label="Model" value={data.model} onChange={(v) => update('model', v)} placeholder="npr. Passat" />
@@ -274,10 +390,11 @@ export default function ClaimWizard() {
                   </div>
                 )}
 
-                {step === 2 && (
+                {/* STEP 4 (index 3): Oštećeni delovi + opis */}
+                {step === 3 && (
                   <div>
                     <StepHeader
-                      number={3}
+                      number={4}
                       title="Oštećeni delovi"
                       subtitle="Štiklirajte sve što je vidljivo oštećeno"
                     />
@@ -314,19 +431,20 @@ export default function ClaimWizard() {
                   </div>
                 )}
 
-                {step === 3 && (
+                {/* STEP 5 (index 4): Foto upload + finalni submit */}
+                {step === 4 && (
                   <div>
                     <StepHeader
-                      number={4}
+                      number={5}
                       title="Fotografije"
-                      subtitle="Opciono - pomaže nam da pripremimo procenu"
+                      subtitle="Opciono - šaljete ih nakon prijave preko WhatsApp/Viber"
                     />
                     <label
                       htmlFor="files"
                       className="block border-2 border-dashed border-neutral-300 dark:border-neutral-700 rounded-2xl p-10 text-center cursor-pointer hover:border-brand-orange transition group"
                     >
                       <Upload className="w-10 h-10 mx-auto text-neutral-400 group-hover:text-brand-orange transition mb-3" />
-                      <div className="font-bold">Kliknite ili prevucite fotografije</div>
+                      <div className="font-bold">Kliknite ili prevucite fotografije (preview)</div>
                       <div className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
                         Preporuka: 4 ugla vozila + foto svakog oštećenja izbliza. Max 8 fotografija.
                       </div>
@@ -364,51 +482,11 @@ export default function ClaimWizard() {
                         ))}
                       </div>
                     )}
-                  </div>
-                )}
 
-                {step === 4 && (
-                  <div>
-                    <StepHeader number={5} title="Kontakt podaci" subtitle="Da Vas brzo kontaktiramo" />
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <Field
-                        label="Ime i prezime *"
-                        value={data.fullName}
-                        onChange={(v) => update('fullName', v)}
-                        placeholder="Marko Marković"
-                      />
-                      <Field
-                        label="Telefon *"
-                        value={data.phone}
-                        onChange={(v) => update('phone', v)}
-                        placeholder="+381 6X XXX XXXX"
-                        type="tel"
-                      />
-                      <Field
-                        label="Email (opciono)"
-                        value={data.email}
-                        onChange={(v) => update('email', v)}
-                        placeholder="ime@email.com"
-                        type="email"
-                      />
-                      <Field
-                        label="Grad / lokacija"
-                        value={data.city}
-                        onChange={(v) => update('city', v)}
-                        placeholder="Niš"
-                      />
-                    </div>
-                    <div className="mt-4">
-                      <Checkbox
-                        checked={data.isUrgent}
-                        onChange={(v) => update('isUrgent', v)}
-                        label="🚨 Hitan slučaj - potreban mi je zapisnik istog dana"
-                      />
-                    </div>
                     <div className="mt-6 p-4 rounded-xl bg-neutral-100 dark:bg-neutral-900 text-xs text-neutral-600 dark:text-neutral-400">
-                      Klikom na „Pošalji prijavu" slažete se da Vas kontaktiramo radi izrade
-                      procene. Vaši podaci se koriste isključivo za potrebe izrade zapisnika i ne
-                      prosleđuju se trećim licima.
+                      <strong className="text-neutral-900 dark:text-white">Napomena:</strong> Iz
+                      razloga sigurnosti i privatnosti, fotografije šaljete direktno na WhatsApp ili
+                      Viber pošto kliknete „Pošalji prijavu". Vaši podaci stižu na e-mail odmah.
                     </div>
                   </div>
                 )}
@@ -425,7 +503,7 @@ export default function ClaimWizard() {
                   </button>
                   {step < 4 ? (
                     <button
-                      onClick={next}
+                      onClick={handleNext}
                       disabled={!canProceed}
                       className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
                     >
@@ -435,11 +513,11 @@ export default function ClaimWizard() {
                   ) : (
                     <button
                       onClick={submit}
-                      disabled={!canProceed}
+                      disabled={!canProceed || sending}
                       className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <Send className="w-4 h-4" />
-                      Pošalji prijavu
+                      {sending ? 'Šaljem...' : 'Pošalji prijavu'}
                     </button>
                   )}
                 </div>

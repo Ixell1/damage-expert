@@ -2,7 +2,17 @@
 
 import { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calculator as CalcIcon, Plus, Minus, Sparkles, AlertTriangle, ArrowRight, RotateCcw } from 'lucide-react';
+import {
+  Calculator as CalcIcon,
+  Plus,
+  Minus,
+  Sparkles,
+  AlertTriangle,
+  ArrowRight,
+  RotateCcw,
+  ChevronDown,
+  ChevronUp,
+} from 'lucide-react';
 import { PARTS, DAMAGE_LABEL, DAMAGE_DESC, type DamageLevel } from '@/data/parts';
 import { formatRSD } from '@/lib/utils';
 
@@ -21,6 +31,10 @@ const VEHICLE_CLASS: { id: string; label: string; factor: number; hint: string }
 export default function Calculator() {
   const [vehicleClass, setVehicleClass] = useState('mid');
   const [selections, setSelections] = useState<Selection[]>([]);
+  const [showAllParts, setShowAllParts] = useState(false);
+
+  // Initial visible count on mobile = 6, on desktop list is scrollable instead.
+  const MOBILE_INITIAL_COUNT = 6;
 
   const factor = VEHICLE_CLASS.find((v) => v.id === vehicleClass)?.factor || 1;
 
@@ -160,14 +174,29 @@ export default function Calculator() {
                 Oštećeni delovi <span className="text-xs font-normal text-neutral-500">(izaberi sve što važi)</span>
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-2">
-                {PARTS.map((part) => {
+              {/*
+                Mobile (<sm): show MOBILE_INITIAL_COUNT items, then "Učitaj više" button
+                Desktop (≥lg): list scrollable inside container of fixed max-height (~sidebar height)
+                Selected items always remain visible (we sort them to top).
+              */}
+              <div
+                className={`grid sm:grid-cols-2 gap-2 relative ${
+                  showAllParts
+                    ? 'lg:max-h-[640px] lg:overflow-y-auto lg:pr-2'
+                    : 'lg:max-h-[640px] lg:overflow-y-auto lg:pr-2'
+                }`}
+              >
+                {PARTS.map((part, idx) => {
                   const sel = selections.find((s) => s.partId === part.id);
                   const isSelected = !!sel;
+                  // On mobile: hide items beyond MOBILE_INITIAL_COUNT unless showAllParts OR selected
+                  const hideOnMobile = !showAllParts && !isSelected && idx >= MOBILE_INITIAL_COUNT;
                   return (
                     <div
                       key={part.id}
                       className={`p-3 rounded-xl border transition ${
+                        hideOnMobile ? 'hidden sm:block' : ''
+                      } ${
                         isSelected
                           ? 'border-brand-orange bg-brand-orange/5'
                           : 'border-neutral-200 dark:border-neutral-800'
@@ -237,6 +266,29 @@ export default function Calculator() {
                   );
                 })}
               </div>
+
+              {/* Učitaj više / Sakrij dugme - na mobile vidljivo uvek; na desktop samo kao toggle visibility */}
+              {PARTS.length > MOBILE_INITIAL_COUNT && (
+                <div className="mt-3 flex justify-center">
+                  <button
+                    type="button"
+                    onClick={() => setShowAllParts((v) => !v)}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-brand-orange/40 bg-brand-orange/5 text-brand-orange font-semibold text-sm hover:bg-brand-orange hover:text-white transition"
+                  >
+                    {showAllParts ? (
+                      <>
+                        <ChevronUp className="w-4 h-4" />
+                        Prikaži manje
+                      </>
+                    ) : (
+                      <>
+                        <ChevronDown className="w-4 h-4" />
+                        Učitaj još {PARTS.length - MOBILE_INITIAL_COUNT} delova
+                      </>
+                    )}
+                  </button>
+                </div>
+              )}
             </div>
 
             {selections.length > 0 && (
