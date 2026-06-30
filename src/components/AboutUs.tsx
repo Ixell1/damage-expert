@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import {
   GraduationCap,
@@ -91,46 +92,60 @@ export default function AboutUs() {
               className="relative"
             >
               <div className="absolute -inset-4 bg-gradient-to-br from-brand-orange/30 to-transparent rounded-3xl blur-2xl" aria-hidden />
-              <div className="relative card p-6 md:p-8 bg-gradient-to-br from-brand-black to-brand-ink text-white border-brand-orange/40">
-                <div className="flex items-center gap-4 mb-5">
-                  <div className="w-20 h-20 rounded-2xl bg-brand-orange flex items-center justify-center text-white font-display font-extrabold text-3xl shadow-lg shadow-brand-orange/40">
-                    MJ
-                  </div>
-                  <div>
-                    <div className="font-display text-2xl font-extrabold">Marko Janković</div>
-                    <div className="text-sm text-brand-orange font-semibold mt-0.5">
+              <div className="relative card p-0 overflow-hidden bg-gradient-to-br from-brand-black to-brand-ink text-white border-brand-orange/40">
+                {/* Marko portret - puna sirina kartice */}
+                <div className="relative aspect-[3/4] w-full overflow-hidden bg-gradient-to-br from-brand-orange/20 via-brand-black to-brand-ink">
+                  <Image
+                    src="/img/marko-portret.webp"
+                    alt="Marko Janković - Procenitelj štete, Damage Expert"
+                    fill
+                    sizes="(min-width: 1024px) 33vw, 100vw"
+                    className="object-cover object-top"
+                    priority
+                  />
+                  {/* Donji gradient za citljivost teksta preko slike */}
+                  <div
+                    aria-hidden
+                    className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-brand-black via-brand-black/85 to-transparent"
+                  />
+                  {/* Marko info preko donjeg dela */}
+                  <div className="absolute inset-x-0 bottom-0 p-6">
+                    <div className="font-display text-2xl font-extrabold leading-tight">
+                      Marko Janković
+                    </div>
+                    <div className="text-sm text-brand-orange font-semibold mt-1">
                       Procenitelj štete · Osnivač
                     </div>
-                    <div className="text-xs text-neutral-400 mt-0.5">
-                      Damage Expert · Niš
-                    </div>
+                    <div className="text-xs text-neutral-300 mt-0.5">Damage Expert · Niš</div>
                   </div>
                 </div>
 
-                <p className="text-neutral-300 leading-relaxed text-pretty">
-                  „U rent a car industriji sam obradio hiljade slučajeva štete - od malih ogrebotina
-                  do totalno havarisanih vozila. Tu nema mesta za grešku, jer iza svake procene stoji
-                  konkretan račun ka klijentu ili lizingu. Tu rigoroznost donosim u svaki zapisnik
-                  koji izrađujem za Damage Expert."
-                </p>
+                <div className="p-6 md:p-8">
+                  <p className="text-neutral-300 leading-relaxed text-pretty">
+                    „U rent a car industriji sam obradio hiljade slučajeva štete - od malih ogrebotina
+                    do totalno havarisanih vozila. Tu nema mesta za grešku, jer iza svake procene
+                    stoji konkretan račun ka klijentu ili lizingu. Tu rigoroznost donosim u svaki
+                    zapisnik koji izrađujem za Damage Expert."
+                  </p>
 
-                <div className="mt-6 pt-6 border-t border-white/10 grid grid-cols-3 gap-3 text-center">
-                  <div>
-                    <div className="font-display text-2xl font-extrabold text-brand-orange">5+</div>
-                    <div className="text-[10px] uppercase tracking-wider text-neutral-400 mt-1">
-                      Godina iskustva
+                  <div className="mt-6 pt-6 border-t border-white/10 grid grid-cols-3 gap-3 text-center">
+                    <div>
+                      <div className="font-display text-2xl font-extrabold text-brand-orange">5+</div>
+                      <div className="text-[10px] uppercase tracking-wider text-neutral-400 mt-1">
+                        Godina iskustva
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <div className="font-display text-2xl font-extrabold text-brand-orange">1000+</div>
-                    <div className="text-[10px] uppercase tracking-wider text-neutral-400 mt-1">
-                      Obrađenih slučajeva
+                    <div>
+                      <div className="font-display text-2xl font-extrabold text-brand-orange">1000+</div>
+                      <div className="text-[10px] uppercase tracking-wider text-neutral-400 mt-1">
+                        Obrađenih slučajeva
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <div className="font-display text-2xl font-extrabold text-brand-orange">24h</div>
-                    <div className="text-[10px] uppercase tracking-wider text-neutral-400 mt-1">
-                      Maks. zapisnik
+                    <div>
+                      <div className="font-display text-2xl font-extrabold text-brand-orange">24h</div>
+                      <div className="text-[10px] uppercase tracking-wider text-neutral-400 mt-1">
+                        Maks. zapisnik
+                      </div>
                     </div>
                   </div>
                 </div>
